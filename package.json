@@ -1,0 +1,34 @@
+{
+  "name": "gold_of_desert_king_server_node",
+  "version": "1.0.0",
+  "description": "北京企业内训项目，沙漠淘金移动端小游戏。采用cocos creater创建，主要面向微信小游戏。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "push": "git push origin dev_1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/git_x/gold_of_desert_king_SERVER_Node.js.git"
+  },
+  "author": "yx",
+  "license": "ISC",
+  "dependencies": {
+    "asyncawait": "1.0.7",
+    "body-parser": "*",
+    "co": "4.6.0",
+    "express": "*",
+    "fs": "*",
+    "log4js": "3.0.6",
+    "multer": "*",
+    "mysql": "*",
+    "mysql2": "1.6.4",
+    "nodemailer": "4.6.8",
+    "nodemailer-smtp-transport": "2.7.4",
+    "path": "*",
+    "request": "*",
+    "sequelize": "4.41.2",
+    "socket.io": "2.2.0",
+    "supervisor": "0.12.0"
+  }
+}

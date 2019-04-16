@@ -1,0 +1,5 @@
+添加环境变量：
+export PATH="$PATH:/usr/local/node_global/bin"
+
+执行：
+supervisor server.js 
