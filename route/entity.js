@@ -28,8 +28,8 @@ module.exports = router
 // 用户&管理员
 router.use('/user', function (req, res) { 
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) user.findAndCountAll(req, res)
-    if(req.query.judge==1) user.create(req, res)
+    if(req.query.judge==0) user.findAndCountAll(req,res)
+    if(req.query.judge==1) user.create(req,res)
     if(req.query.judge==2) user.delete(req,res)
     if(req.query.judge==3) user.update(req,res)
     if(req.query.judge==4) user.selectUsersByEmail(req,res)
@@ -76,7 +76,7 @@ router.use('/card', function (req, res) {
     if(req.query.judge==2) card.delete(req,res)
     if(req.query.judge==3) card.update(req,res)
 });
-// 用户信息
+// 快递信息
 router.use('/logistic', function (req, res) { 
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.query.judge==0) logistic.findAndCountAll(req, res)

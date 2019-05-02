@@ -53,16 +53,18 @@ module.exports = {
                 'name':req.body.name,
                 'mail':req.body.mail
             },
-            defaults: {             
-                'cname':req.body.cname,    
+            defaults: { 
+                'openid':req.body.openid,
+                'sessionid':req.body.sessionid,
                 'name':req.body.name,
                 'pass':req.body.pass,
                 'type':req.body.type,
                 'mail':req.body.mail,
                 'phone':req.body.phone,
                 'condition':req.body.condition,
-                'openid':req.body.openid,
-                'sessionid':req.body.sessionid
+                'info_id':req.body.info_id,
+                'authen_id':req.body.authen_id,
+                'school_id':req.body.school_id,
             }
         }).then( msg=>{ res.send(msg); })
     },
@@ -85,18 +87,18 @@ module.exports = {
     //更新用户信息
     update(req,res){
         user.update(
-            {
-                'cname':req.body.cname,    
+            {  
+                'openid':req.body.openid,
+                'sessionid':req.body.sessionid,
                 'name':req.body.name,
                 'pass':req.body.pass,
                 'type':req.body.type,
                 'mail':req.body.mail,
                 'phone':req.body.phone,
                 'condition':req.body.condition,
-                'team_id':req.body.team_id,
-                'job':req.body.job,
-                'openid':req.body.openid,
-                'sessionid':req.body.sessionid
+                'info_id':req.body.info_id,
+                'authen_id':req.body.authen_id,
+                'school_id':req.body.school_id,
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })

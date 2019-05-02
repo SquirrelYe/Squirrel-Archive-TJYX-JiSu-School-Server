@@ -26,7 +26,7 @@ server.use((req, res, next) => {
     // res.header("Access-Control-Allow-Origin", "*");
     // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,Authorization");
     if(req.method != 'POST'){
-        res.sendStatus(502)
+        res.sendStatus(502)        
     }else{
         next();
     }
@@ -36,7 +36,8 @@ server.use((req, res, next) => {
 server.use('/ent', entity);
 server.use('/ass', association);
 
-server.get('/index', function (req, res) {
+server.use('/index', function (req, res) {
+    console.log(req.headers)
     res.sendStatus(200)
 });
 
