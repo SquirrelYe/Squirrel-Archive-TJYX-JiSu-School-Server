@@ -17,14 +17,14 @@ module.exports = {
     // 按id查询
     findById(req,res){
         logistic.findOne({
-            where:{ 'id':req.query.id },
+            where:{ 'id':req.body.id },
             include:[{model:user}, {model:location}]
         }).then( msg => { res.send(msg); })
     },
     // 按user查询
     findByUserId(req,res){
         logistic.findAndCountAll({
-            where:{ 'user_id':req.query.user_id },
+            where:{ 'user_id':req.body.user_id },
             include:[{model:user}, {model:location}]
         }).then( msg => { res.send(msg); })
     }

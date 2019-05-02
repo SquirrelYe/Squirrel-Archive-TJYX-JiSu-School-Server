@@ -17,21 +17,21 @@ module.exports = {
     // 按id查询
     findById(req,res){
         authen.findOne({
-            where:{ 'id':req.query.id },
+            where:{ 'id':req.body.id },
             include:[{ model:user}, {model:school}]
         }).then( msg => { res.send(msg); })
     },
     // 按user查询(用户)
     findByUserId(req,res){
         authen.findOne({
-            where:{ 'user_id':req.query.user_id },
+            where:{ 'user_id':req.body.user_id },
             include:[{ model:user}, {model:school}]
         }).then( msg => { res.send(msg); })
     },
     // 按school查询
     findBySchoolId(req,res){
         authen.findAndCountAll({
-            where:{ 'school_id':req.query.school_id },
+            where:{ 'school_id':req.body.school_id },
             include:[{ model:user}, {model:school}]
         }).then( msg => { res.send(msg); })
     }

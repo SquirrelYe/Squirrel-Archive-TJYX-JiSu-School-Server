@@ -26,16 +26,16 @@ module.exports = {
     create(req,res){
         card.create({
             'id':null,
-            'user_id':req.query.user_id,
-            'condition':req.query.condition,
-            'location_id':req.query.location_id
+            'user_id':req.body.user_id,
+            'condition':req.body.condition,
+            'location_id':req.body.location_id
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         card.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -43,11 +43,11 @@ module.exports = {
     update(req,res){
         card.update(
             {
-                'user_id':req.query.user_id,
-                'condition':req.query.condition,
-                'location_id':req.query.location_id
+                'user_id':req.body.user_id,
+                'condition':req.body.condition,
+                'location_id':req.body.location_id
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

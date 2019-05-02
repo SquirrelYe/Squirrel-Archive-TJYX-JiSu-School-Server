@@ -21,35 +21,35 @@ module.exports = {
     // 按id查询
     findById(req,res){
         cart.findOne({
-            where:{ 'id':req.query.id },
+            where:{ 'id':req.body.id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     },
     // 按userid查询
     findByUserId(req,res){
         cart.findAndCountAll({
-            where:{ 'user_id':req.query.user_id },
+            where:{ 'user_id':req.body.user_id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     },
     // 按考试查询
     findByExam(req,res){
         cart.findAndCountAll({
-            where:{ 'eitem_id':req.query.eitem_id },
+            where:{ 'eitem_id':req.body.eitem_id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     },
     // 按旅游查询
     findByJourney(req,res){
         cart.findAndCountAll({
-            where:{ 'jitem_id':req.query.jitem_id },
+            where:{ 'jitem_id':req.body.jitem_id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     },
     // 按水果查询
     findByFruit(req,res){
         cart.findAndCountAll({
-            where:{ 'fitem_id':req.query.fitem_id },
+            where:{ 'fitem_id':req.body.fitem_id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     }

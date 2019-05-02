@@ -31,21 +31,21 @@ module.exports = {
     create(req,res){
         authen.create({
             'id':null,
-            'user_id':req.query.user_id,
-            'condition':req.query.condition,
-            'name':req.query.name,
-            'school_id':req.query.school_id,
-            'xuehao':req.query.xuehao,
-            'phone':req.query.phone,
-            'mail':req.query.mail,
-            'rz_icon':req.query.rz_icon
+            'user_id':req.body.user_id,
+            'condition':req.body.condition,
+            'name':req.body.name,
+            'school_id':req.body.school_id,
+            'xuehao':req.body.xuehao,
+            'phone':req.body.phone,
+            'mail':req.body.mail,
+            'rz_icon':req.body.rz_icon
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         authen.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -53,16 +53,16 @@ module.exports = {
     update(req,res){
         authen.update(
             {
-                'user_id':req.query.user_id,
-                'condition':req.query.condition,
-                'name':req.query.name,
-                'school_id':req.query.school_id,
-                'xuehao':req.query.xuehao,
-                'phone':req.query.phone,
-                'mail':req.query.mail,
-                'rz_icon':req.query.rz_icon
+                'user_id':req.body.user_id,
+                'condition':req.body.condition,
+                'name':req.body.name,
+                'school_id':req.body.school_id,
+                'xuehao':req.body.xuehao,
+                'phone':req.body.phone,
+                'mail':req.body.mail,
+                'rz_icon':req.body.rz_icon
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

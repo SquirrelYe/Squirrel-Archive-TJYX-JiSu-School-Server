@@ -33,23 +33,23 @@ module.exports = {
     create(req,res){
         order.create({
             'id':null,
-            'me':req.query.me,
-            'other':req.query.other,
-            'location_id':req.query.location_id,
-            'condition':req.query.condition,
-            'get_at':req.query.get_at,
-            'post_at':req.query.post_at,
-            'accept_at':req.query.accept_at,
-            'callback_at':req.query.callback_at,
-            'me_callback':req.query.me_callback,
-            'other_callback':req.query.other_callback
+            'me':req.body.me,
+            'other':req.body.other,
+            'location_id':req.body.location_id,
+            'condition':req.body.condition,
+            'get_at':req.body.get_at,
+            'post_at':req.body.post_at,
+            'accept_at':req.body.accept_at,
+            'callback_at':req.body.callback_at,
+            'me_callback':req.body.me_callback,
+            'other_callback':req.body.other_callback
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         order.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -57,18 +57,18 @@ module.exports = {
     update(req,res){
         order.update(
             {
-                'me':req.query.me,
-                'other':req.query.other,
-                'location_id':req.query.location_id,
-                'condition':req.query.condition,
-                'get_at':req.query.get_at,
-                'post_at':req.query.post_at,
-                'accept_at':req.query.accept_at,
-                'callback_at':req.query.callback_at,
-                'me_callback':req.query.me_callback,
-                'other_callback':req.query.other_callback
+                'me':req.body.me,
+                'other':req.body.other,
+                'location_id':req.body.location_id,
+                'condition':req.body.condition,
+                'get_at':req.body.get_at,
+                'post_at':req.body.post_at,
+                'accept_at':req.body.accept_at,
+                'callback_at':req.body.callback_at,
+                'me_callback':req.body.me_callback,
+                'other_callback':req.body.other_callback
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

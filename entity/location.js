@@ -29,19 +29,19 @@ module.exports = {
     create(req,res){
         location.create({
             'id':null,
-            'user_id':req.query.user_id,
-            'name':req.query.name,
-            'phone':req.query.phone,
-            'school':req.query.school,
-            'dom':req.query.dom,
-            'detail':req.query.detail
+            'user_id':req.body.user_id,
+            'name':req.body.name,
+            'phone':req.body.phone,
+            'school':req.body.school,
+            'dom':req.body.dom,
+            'detail':req.body.detail
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         location.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -49,14 +49,14 @@ module.exports = {
     update(req,res){
         location.update(
             {
-                'user_id':req.query.user_id,
-                'name':req.query.name,
-                'phone':req.query.phone,
-                'school':req.query.school,
-                'dom':req.query.dom,
-                'detail':req.query.detail
+                'user_id':req.body.user_id,
+                'name':req.body.name,
+                'phone':req.body.phone,
+                'school':req.body.school,
+                'dom':req.body.dom,
+                'detail':req.body.detail
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

@@ -30,20 +30,20 @@ module.exports = {
     create(req,res){
         cart.create({
             'id':null,
-            'user_id':req.query.user_id,
-            'type':req.query.condition,
-            'number':req.query.condition,
-            'eitem_id':req.query.condition,
-            'jitem_id':req.query.condition,
-            'fitem_id':req.query.condition,
-            'condition':req.query.condition
+            'user_id':req.body.user_id,
+            'type':req.body.condition,
+            'number':req.body.condition,
+            'eitem_id':req.body.condition,
+            'jitem_id':req.body.condition,
+            'fitem_id':req.body.condition,
+            'condition':req.body.condition
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         cart.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -51,15 +51,15 @@ module.exports = {
     update(req,res){
         cart.update(
             {
-                'user_id':req.query.user_id,
-                'type':req.query.condition,
-                'number':req.query.condition,
-                'eitem_id':req.query.condition,
-                'jitem_id':req.query.condition,
-                'fitem_id':req.query.condition,
-                'condition':req.query.condition
+                'user_id':req.body.user_id,
+                'type':req.body.condition,
+                'number':req.body.condition,
+                'eitem_id':req.body.condition,
+                'jitem_id':req.body.condition,
+                'fitem_id':req.body.condition,
+                'condition':req.body.condition
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

@@ -23,28 +23,28 @@ module.exports = {
     // 按用户类型查询
     findAndCountAllByType(req,res){
         user.findAndCountAll({
-            where:{ 'type':req.query.type },
+            where:{ 'type':req.body.type },
             include:[{model:info}, {model:authen}, {model:school}]
         }).then( msg => { res.send(msg); })
     },
     // 按学校查询
     findAndCountAllBySchool(req,res){
         user.findAndCountAll({
-            where:{ 'school_id':req.query.school_id },
+            where:{ 'school_id':req.body.school_id },
             include:[{model:info}, {model:authen}, {model:school}]
         }).then( msg => { res.send(msg); })
     },
     // 按id查询
     findOneById(req,res){
         user.findOne({
-            where:{ 'id':req.query.user_id },
+            where:{ 'id':req.body.user_id },
             include:[{model:info}, {model:authen}, {model:school}]
         }).then( msg => { res.send(msg); })
     },
     // 按openidid查询
     findOneByOpenId(req,res){
         user.findOne({
-            where:{ 'openid':req.query.openid },
+            where:{ 'openid':req.body.openid },
             include:[{model:info}, {model:authen}, {model:school}]
         }).then( msg => { res.send(msg); })
     },

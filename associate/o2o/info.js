@@ -15,14 +15,14 @@ module.exports = {
     // 按id查询
     findById(req,res){
         info.findOne({
-            where:{ 'id':req.query.id },
+            where:{ 'id':req.body.id },
             include:[{ model:user}]
         }).then( msg => { res.send(msg); })
     },
     // 按user查询(用户)
     findByUserId(req,res){
         info.findOne({
-            where:{ 'user_id':req.query.user_id },
+            where:{ 'user_id':req.body.user_id },
             include:[{ model:user}]
         }).then( msg => { res.send(msg); })
     },

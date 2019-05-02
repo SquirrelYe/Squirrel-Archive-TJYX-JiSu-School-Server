@@ -34,15 +34,15 @@ module.exports = {
     //查询注册时邮箱是否被占用
     selectUsersByEmail(req,res){
         user.findAndCountAll({ 
-            'where':{ 'mail':req.query.mail }
+            'where':{ 'mail':req.body.mail }
          }).then( msg=>{ res.send(msg)  })       
     },  
     //登录
     login(req,res){
         user.findOne({
             'where':{
-                'name':req.query.name,
-                'pass':req.query.pass
+                'name':req.body.name,
+                'pass':req.body.pass
             }
         }).then( msg=>{ res.send(msg); })
     },    
@@ -50,35 +50,35 @@ module.exports = {
     create(req,res){
         user.findOrCreate({
             where: {
-                'name':req.query.name,
-                'mail':req.query.mail
+                'name':req.body.name,
+                'mail':req.body.mail
             },
             defaults: {             
-                'cname':req.query.cname,    
-                'name':req.query.name,
-                'pass':req.query.pass,
-                'type':req.query.type,
-                'mail':req.query.mail,
-                'phone':req.query.phone,
-                'condition':req.query.condition,
-                'openid':req.query.openid,
-                'sessionid':req.query.sessionid
+                'cname':req.body.cname,    
+                'name':req.body.name,
+                'pass':req.body.pass,
+                'type':req.body.type,
+                'mail':req.body.mail,
+                'phone':req.body.phone,
+                'condition':req.body.condition,
+                'openid':req.body.openid,
+                'sessionid':req.body.sessionid
             }
         }).then( msg=>{ res.send(msg); })
     },
     //更新密码（密码找回）
     updatePass(req,res){
         user.update(
-            { 'pass':req.query.pass },
+            { 'pass':req.body.pass },
             {
-                'where':{ 'mail':req.query.mail }
+                'where':{ 'mail':req.body.mail }
             }).then( msg=>{ res.send(msg); })
     },
     //删除用户
     delete(req,res){
         user.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send({'affectRows':msg}); })
     },
@@ -86,19 +86,19 @@ module.exports = {
     update(req,res){
         user.update(
             {
-                'cname':req.query.cname,    
-                'name':req.query.name,
-                'pass':req.query.pass,
-                'type':req.query.type,
-                'mail':req.query.mail,
-                'phone':req.query.phone,
-                'condition':req.query.condition,
-                'team_id':req.query.team_id,
-                'job':req.query.job,
-                'openid':req.query.openid,
-                'sessionid':req.query.sessionid
+                'cname':req.body.cname,    
+                'name':req.body.name,
+                'pass':req.body.pass,
+                'type':req.body.type,
+                'mail':req.body.mail,
+                'phone':req.body.phone,
+                'condition':req.body.condition,
+                'team_id':req.body.team_id,
+                'job':req.body.job,
+                'openid':req.body.openid,
+                'sessionid':req.body.sessionid
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

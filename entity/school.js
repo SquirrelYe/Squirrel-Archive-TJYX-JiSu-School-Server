@@ -26,16 +26,16 @@ module.exports = {
     create(req,res){
         school.create({
             'id':null,
-            'name':req.query.name,
-            'detail':req.query.detail,
-            'province':req.query.province
+            'name':req.body.name,
+            'detail':req.body.detail,
+            'province':req.body.province
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         school.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -43,11 +43,11 @@ module.exports = {
     update(req,res){
         school.update(
             {
-                'name':req.query.name,
-                'detail':req.query.detail,
-                'province':req.query.province
+                'name':req.body.name,
+                'detail':req.body.detail,
+                'province':req.body.province
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

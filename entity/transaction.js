@@ -30,20 +30,20 @@ module.exports = {
     create(req,res){
         tran.create({
             'id':null,
-            'user_id':req.query.user_id,
-            'type':req.query.type,
-            'number':req.query.number,
-            'eitem_id':req.query.eitem_id,
-            'jitem_id':req.query.jitem_id,
-            'fitem_id':req.query.fitem_id,
-            'condition':req.query.condition
+            'user_id':req.body.user_id,
+            'type':req.body.type,
+            'number':req.body.number,
+            'eitem_id':req.body.eitem_id,
+            'jitem_id':req.body.jitem_id,
+            'fitem_id':req.body.fitem_id,
+            'condition':req.body.condition
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         tran.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -51,15 +51,15 @@ module.exports = {
     update(req,res){
         tran.update(
             {
-                'user_id':req.query.user_id,
-                'type':req.query.type,
-                'number':req.query.number,
-                'eitem_id':req.query.eitem_id,
-                'jitem_id':req.query.jitem_id,
-                'fitem_id':req.query.fitem_id,
-                'condition':req.query.condition
+                'user_id':req.body.user_id,
+                'type':req.body.type,
+                'number':req.body.number,
+                'eitem_id':req.body.eitem_id,
+                'jitem_id':req.body.jitem_id,
+                'fitem_id':req.body.fitem_id,
+                'condition':req.body.condition
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

@@ -15,14 +15,14 @@ module.exports = {
     // 按id查询
     findById(req,res){
         fitem.findOne({
-            where:{ 'id':req.query.id },
+            where:{ 'id':req.body.id },
             include:[{ model:fruit}]
         }).then( msg => { res.send(msg); })
     },
     // 按examid查询
     findByFruitId(req,res){
         fitem.findAndCountAll({
-            where:{ 'exam_id':req.query.exam_id },
+            where:{ 'exam_id':req.body.exam_id },
             include:[{ model:fruit}]
         }).then( msg => { res.send(msg); })
     },

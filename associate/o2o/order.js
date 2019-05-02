@@ -18,21 +18,21 @@ module.exports = {
     // 按id查询
     findById(req,res){
         order.findOne({
-            where:{ 'id':req.query.id },
+            where:{ 'id':req.body.id },
             include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:logistic}]
         }).then( msg => { res.send(msg); })
     },
     // 按user查询(用户)
     findByMe(req,res){
         order.findAndCountAll({
-            where:{ 'me':req.query.me },
+            where:{ 'me':req.body.me },
             include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:logistic}]
         }).then( msg => { res.send(msg); })
     },
     // 按user查询(校园大使)
     findByOther(req,res){
         order.findAndCountAll({
-            where:{ 'me':req.query.other },
+            where:{ 'me':req.body.other },
             include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:logistic}]
         }).then( msg => { res.send(msg); })
     }

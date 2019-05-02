@@ -30,20 +30,20 @@ module.exports = {
     create(req,res){
         fitem.create({
             'id':null,
-            'logo':req.query.logo,
-            'name':req.query.name,
-            'title':req.query.title,
-            'price':req.query.price,
-            'detail':req.query.detail,
-            'fruit_id':req.query.fruit_id,
-            'condition':req.query.condition
+            'logo':req.body.logo,
+            'name':req.body.name,
+            'title':req.body.title,
+            'price':req.body.price,
+            'detail':req.body.detail,
+            'fruit_id':req.body.fruit_id,
+            'condition':req.body.condition
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         fitem.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -51,15 +51,15 @@ module.exports = {
     update(req,res){
         fitem.update(
             {
-                'logo':req.query.logo,
-                'name':req.query.name,
-                'title':req.query.title,
-                'price':req.query.price,
-                'detail':req.query.detail,
-                'fruit_id':req.query.fruit_id,
-                'condition':req.query.condition
+                'logo':req.body.logo,
+                'name':req.body.name,
+                'title':req.body.title,
+                'price':req.body.price,
+                'detail':req.body.detail,
+                'fruit_id':req.body.fruit_id,
+                'condition':req.body.condition
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

@@ -15,14 +15,14 @@ module.exports = {
     // 按id查询
     findById(req,res){
         eitem.findOne({
-            where:{ 'id':req.query.id },
+            where:{ 'id':req.body.id },
             include:[{ model:exam}]
         }).then( msg => { res.send(msg); })
     },
     // 按examid查询
     findByExamId(req,res){
         eitem.findAndCountAll({
-            where:{ 'exam_id':req.query.exam_id },
+            where:{ 'exam_id':req.body.exam_id },
             include:[{ model:exam}]
         }).then( msg => { res.send(msg); })
     },

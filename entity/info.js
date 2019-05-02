@@ -30,20 +30,20 @@ module.exports = {
     create(req,res){
         info.create({
             'id':null,
-            'user_id':req.query.user_id,
-            'nickName':req.query.nickName,
-            'avatarUrl':req.query.avatarUrl,
-            'gender':req.query.gender,
-            'province':req.query.province,
-            'city':req.query.city,
-            'country':req.query.country
+            'user_id':req.body.user_id,
+            'nickName':req.body.nickName,
+            'avatarUrl':req.body.avatarUrl,
+            'gender':req.body.gender,
+            'province':req.body.province,
+            'city':req.body.city,
+            'country':req.body.country
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         info.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -51,15 +51,15 @@ module.exports = {
     update(req,res){
         info.update(
             {
-                'user_id':req.query.user_id,
-                'nickName':req.query.nickName,
-                'avatarUrl':req.query.avatarUrl,
-                'gender':req.query.gender,
-                'province':req.query.province,
-                'city':req.query.city,
-                'country':req.query.country
+                'user_id':req.body.user_id,
+                'nickName':req.body.nickName,
+                'avatarUrl':req.body.avatarUrl,
+                'gender':req.body.gender,
+                'province':req.body.province,
+                'city':req.body.city,
+                'country':req.body.country
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

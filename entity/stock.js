@@ -26,16 +26,16 @@ module.exports = {
     create(req,res){
         stock.create({
             'id':null,
-            'user_id':req.query.user_id,
-            'money':req.query.money,
-            'condition':req.query.condition
+            'user_id':req.body.user_id,
+            'money':req.body.money,
+            'condition':req.body.condition
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         stock.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -43,11 +43,11 @@ module.exports = {
     update(req,res){
         stock.update(
             {
-                'user_id':req.query.user_id,
-                'money':req.query.money,
-                'condition':req.query.condition
+                'user_id':req.body.user_id,
+                'money':req.body.money,
+                'condition':req.body.condition
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

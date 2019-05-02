@@ -25,15 +25,15 @@ module.exports = {
     create(req,res){
         fruit.create({
             'id':null,
-            'title':req.query.title,
-            'condition':req.query.condition
+            'title':req.body.title,
+            'condition':req.body.condition
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         fruit.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -41,10 +41,10 @@ module.exports = {
     update(req,res){
         fruit.update(
             {
-                'title':req.query.title,
-                'condition':req.query.condition
+                'title':req.body.title,
+                'condition':req.body.condition
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

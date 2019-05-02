@@ -30,20 +30,20 @@ module.exports = {
     create(req,res){
         jitem.create({
             'id':null,
-            'logo':req.query.logo,
-            'name':req.query.name,
-            'title':req.query.title,
-            'price':req.query.price,
-            'detail':req.query.detail,
-            'journey_id':req.query.journey_id,
-            'condition':req.query.condition
+            'logo':req.body.logo,
+            'name':req.body.name,
+            'title':req.body.title,
+            'price':req.body.price,
+            'detail':req.body.detail,
+            'journey_id':req.body.journey_id,
+            'condition':req.body.condition
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         jitem.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -51,15 +51,15 @@ module.exports = {
     update(req,res){
         jitem.update(
             {
-                'logo':req.query.logo,
-                'name':req.query.name,
-                'title':req.query.title,
-                'price':req.query.price,
-                'detail':req.query.detail,
-                'journey_id':req.query.journey_id,
-                'condition':req.query.condition
+                'logo':req.body.logo,
+                'name':req.body.name,
+                'title':req.body.title,
+                'price':req.body.price,
+                'detail':req.body.detail,
+                'journey_id':req.body.journey_id,
+                'condition':req.body.condition
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };

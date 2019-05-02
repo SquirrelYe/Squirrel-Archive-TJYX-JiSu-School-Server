@@ -15,14 +15,14 @@ module.exports = {
     // 按id查询
     findById(req,res){
         jitem.findOne({
-            where:{ 'id':req.query.id },
+            where:{ 'id':req.body.id },
             include:[{ model:journey}]
         }).then( msg => { res.send(msg); })
     },
     // 按examid查询
     findByJourneyId(req,res){
         jitem.findAndCountAll({
-            where:{ 'journey_id':req.query.journey_id },
+            where:{ 'journey_id':req.body.journey_id },
             include:[{ model:journey}]
         }).then( msg => { res.send(msg); })
     },

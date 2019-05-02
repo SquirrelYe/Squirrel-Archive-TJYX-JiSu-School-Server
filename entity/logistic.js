@@ -32,22 +32,22 @@ module.exports = {
     create(req,res){
         logistic.create({
             'id':null,
-            'user_id':req.query.user_id,
-            'location_id':req.query.location_id,
-            'condition':req.query.condition,
-            'total':req.query.total,
-            'money':req.query.money,
-            'time':req.query.time,
-            'log_from':req.query.log_from,
-            'log_to':req.query.log_to,
-            'key':req.query.key
+            'user_id':req.body.user_id,
+            'location_id':req.body.location_id,
+            'condition':req.body.condition,
+            'total':req.body.total,
+            'money':req.body.money,
+            'time':req.body.time,
+            'log_from':req.body.log_from,
+            'log_to':req.body.log_to,
+            'key':req.body.key
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
     delete(req,res){
         logistic.destroy(
             {
-                where:{ 'id':req.query.id }
+                where:{ 'id':req.body.id }
             }
         ).then( msg=>{ res.send(msg); })
     },
@@ -55,17 +55,17 @@ module.exports = {
     update(req,res){
         logistic.update(
             {
-                'user_id':req.query.user_id,
-                'location_id':req.query.location_id,
-                'condition':req.query.condition,
-                'total':req.query.total,
-                'money':req.query.money,
-                'time':req.query.time,
-                'log_from':req.query.log_from,
-                'log_to':req.query.log_to,
-                'key':req.query.key
+                'user_id':req.body.user_id,
+                'location_id':req.body.location_id,
+                'condition':req.body.condition,
+                'total':req.body.total,
+                'money':req.body.money,
+                'time':req.body.time,
+                'log_from':req.body.log_from,
+                'log_to':req.body.log_to,
+                'key':req.body.key
             },
-            {   'where':{ 'id':req.query.id }
+            {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
     }
 };
