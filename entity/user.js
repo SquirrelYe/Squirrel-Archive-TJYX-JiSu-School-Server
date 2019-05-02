@@ -10,6 +10,7 @@ let user = conn.define(
     {
         'id': { 'type': Sequelize.INTEGER(11), 'allowNull': true, 'primaryKey': true, 'autoIncrement': true },
         'openid': { 'type': Sequelize.CHAR(255), 'allowNull': true },
+        'sessionid': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'name': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'pass': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'type': { 'type': Sequelize.INTEGER(1), 'allowNull': true },
@@ -60,7 +61,8 @@ module.exports = {
                 'mail':req.query.mail,
                 'phone':req.query.phone,
                 'condition':req.query.condition,
-                'openid':req.query.openid
+                'openid':req.query.openid,
+                'sessionid':req.query.sessionid
             }
         }).then( msg=>{ res.send(msg); })
     },
@@ -93,16 +95,10 @@ module.exports = {
                 'condition':req.query.condition,
                 'team_id':req.query.team_id,
                 'job':req.query.job,
-                'openid':req.query.openid
+                'openid':req.query.openid,
+                'sessionid':req.query.sessionid
             },
             {   'where':{ 'id':req.query.id }
         }).then( msg=>{ res.send(msg); })
-    },
-    //查询一支队伍的所有人员信息
-    findByTeamId(req,res){
-        user.findAndCountAll(
-            {
-                'where':{ 'team_id':req.query.team_id }
-            }).then( msg=>{ res.send(msg); })
     }
 };

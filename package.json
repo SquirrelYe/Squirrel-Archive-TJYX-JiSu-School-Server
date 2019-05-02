@@ -1,24 +1,25 @@
 {
-  "name": "gold_of_desert_king_server_node",
+  "name": "jisu",
   "version": "1.0.0",
-  "description": "北京企业内训项目，沙漠淘金移动端小游戏。采用cocos creater创建，主要面向微信小游戏。",
+  "description": "极速校园，服务器部分，天津毅襄科技发展有限公司。",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "push": "git push origin dev_1.0"
+    "push": "git push origin master"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/git_x/gold_of_desert_king_SERVER_Node.js.git"
+    "url": "https://gitee.com/git_x/TJYX_JiSu_School_SERVER_NodeJS.git"
   },
   "author": "yx",
-  "license": "ISC",
+  "license": "Apache License",
   "dependencies": {
     "asyncawait": "1.0.7",
     "body-parser": "*",
     "co": "4.6.0",
     "express": "*",
     "fs": "*",
+    "jsonwebtoken": "^8.5.1",
     "log4js": "3.0.6",
     "multer": "*",
     "mysql": "*",

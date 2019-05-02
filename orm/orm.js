@@ -7,7 +7,7 @@ module.exports = {
     //sequelize ORM对象关系映射 
     connection:function(req,res){
         var sequelize = new Sequelize(
-            'YX_gold_of_desert_king', // 数据库名
+            'TJYX_JiSu_School', // 数据库名
             'root',   // 用户名
             'yexuan0628',   // 用户密码
             {
@@ -26,24 +26,19 @@ module.exports = {
     },
     //file 操作
     fileupAsync: function (req,res,pathlib,fs) {
-        const p = new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             console.log(req.files);
             //获取原始文件扩展名
             var newName = req.files[0].path + pathlib.parse(req.files[0].originalname).ext;
-            console.log(pathlib.parse(req.files[0].originalname).ext);      //输出文件后缀
-            console.log("--->", newName);
             fs.rename(req.files[0].path, newName, function (err) {
                 if (err) {
                     console.log("上传失败");
-                    //res.send(JSON.parse(`{ "file upload success ?": "flase" }`))
                     resolve(`{ "file upload success ?": "flase" }`);
                 } else {
                     console.log("上传成功");
-                    // res.send(JSON.parse(`{ "file upload success ?": "true" ,"filename":"${newName}"}`))
                     resolve(`{ "file upload success ?": "true" ,"filename":"${newName}"}`);
                 }
             });
         });
-        return p;
     }
 } 

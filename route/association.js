@@ -3,93 +3,108 @@ const router = express.Router()
 
 // -------------实体导入-------------
 const user = require('../associate/o2o/user')
-const team = require('../associate/o2o/team')
-const statistic = require('../associate/o2o/statistic')
-const game = require('../associate/o2o/game')
-const day = require('../associate/o2o/day')
-const consume = require('../associate/o2o/consume')
-const transaction = require('../associate/o2o/transaction')
-const route = require('../associate/o2o/route')
-const setting = require('../associate/o2o/setting')
-const whether = require('../associate/o2o/whether')
-const map = require('../associate/o2o/map')
+const authen = require('../associate/o2o/authen')
+const card = require('../associate/o2o/card')
+const cart = require('../associate/o2o/cart')
+const eitem = require('../associate/o2o/eitem')
+const fitem = require('../associate/o2o/fitem')
+const info = require('../associate/o2o/info')
+const jitem = require('../associate/o2o/jitem')
+const location = require('../associate/o2o/location')
+const logistic = require('../associate/o2o/logistic')
+const order = require('../associate/o2o/order')
+const stock = require('../associate/o2o/stock')
+const tran = require('../associate/o2o/transaction')
 
-const statistic_module = require('../associate/m2m/statistic_module')
 
 module.exports = router
 
 // 一对一
 router.use('/user',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) user.set(req,res);
-    if(req.query.judge==1) user.del(req,res);
-    if(req.query.judge==2) user.findAndCountAllByType(req,res);
-    if(req.query.judge==3) user.findById(req,res);
+    if(req.query.judge==0) user.findAndCountAll(req,res);
+    if(req.query.judge==1) user.findOneById(req,res);
+    if(req.query.judge==2) user.findOneByOpenId(req,res);
+    if(req.query.judge==3) user.findAndCountAllByType(req,res);
+    if(req.query.judge==4) user.findAndCountAllBySchool(req,res);
 })
-router.use('/team',function(req,res){
+router.use('/authen',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) team.set(req,res);
-    if(req.query.judge==1) team.del(req,res);
-    if(req.query.judge==2) team.findAndCountAll(req,res);
-    if(req.query.judge==3) team.findById(req,res);
+    if(req.query.judge==0) authen.findAndCountAll(req,res);
+    if(req.query.judge==1) authen.findById(req,res);
+    if(req.query.judge==2) authen.findByUserId(req,res);
+    if(req.query.judge==3) authen.findBySchoolId(req,res);
 })
-router.use('/statistic',function(req,res){
+router.use('/info',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) statistic.findAndCountAll(req,res);
-    if(req.query.judge==1) statistic.findById(req,res);
-    if(req.query.judge==2) statistic.findByGameId(req,res);
+    if(req.query.judge==0) info.findAndCountAll(req,res);
+    if(req.query.judge==1) info.findById(req,res);
+    if(req.query.judge==2) info.findByUserId(req,res);
 })
-router.use('/game',function(req,res){
+router.use('/location',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) game.findAndCountAll(req,res);
-    if(req.query.judge==1) game.findById(req,res);
-    if(req.query.judge==2) game.findByCondition(req,res);
+    if(req.query.judge==0) location.findAndCountAll(req,res);
+    if(req.query.judge==1) location.findById(req,res);
+    if(req.query.judge==2) location.findByUserId(req,res);
 })
-router.use('/day',function(req,res){
+router.use('/card',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) day.findAndCountAll(req,res);
-    if(req.query.judge==1) day.findById(req,res);
+    if(req.query.judge==0) card.findAndCountAll(req,res);
+    if(req.query.judge==1) card.findOneById(req,res);
+    if(req.query.judge==2) card.findOneByUserId(req,res);
 })
-router.use('/consume',function(req,res){
+router.use('/logistic',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) consume.findAndCountAll(req,res);
-    if(req.query.judge==1) consume.findById(req,res);
+    if(req.query.judge==0) logistic.findAndCountAll(req,res);
+    if(req.query.judge==1) logistic.findById(req,res);
+    if(req.query.judge==2) logistic.findByUserId(req,res);
 })
-router.use('/transaction',function(req,res){
+router.use('/order',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) transaction.findAndCountAll(req,res);
-    if(req.query.judge==1) transaction.findById(req,res);
-    if(req.query.judge==2) transaction.findByMe(req,res);
-    if(req.query.judge==3) transaction.findByOther(req,res);
-    if(req.query.judge==4) transaction.findByMeOther(req,res);
+    if(req.query.judge==0) order.findAndCountAll(req,res);
+    if(req.query.judge==1) order.findById(req,res);
+    if(req.query.judge==2) order.findByMe(req,res);
+    if(req.query.judge==3) order.findByOther(req,res);
 })
-router.use('/route',function(req,res){
+router.use('/eitem',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) route.findAndCountAll(req,res);
-    if(req.query.judge==1) route.findById(req,res);
+    if(req.query.judge==0) eitem.findAndCountAll(req,res);
+    if(req.query.judge==1) eitem.findById(req,res);
+    if(req.query.judge==2) eitem.findByExamId(req,res);
 })
-router.use('/setting',function(req,res){
+router.use('/jitem',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) setting.findAndCountAll(req,res);
-    if(req.query.judge==1) setting.findById(req,res);
+    if(req.query.judge==0) jitem.findAndCountAll(req,res);
+    if(req.query.judge==1) jitem.findById(req,res);
+    if(req.query.judge==2) jitem.findByJourneyId(req,res);
 })
-router.use('/whether',function(req,res){
+router.use('/fitem',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) whether.findAndCountAll(req,res);
-    if(req.query.judge==1) whether.findById(req,res);
+    if(req.query.judge==0) fitem.findAndCountAll(req,res);
+    if(req.query.judge==1) fitem.findById(req,res);
+    if(req.query.judge==2) fitem.findByFruitId(req,res);
 })
-router.use('/map',function(req,res){
+router.use('/cart',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) map.findAndCountAll(req,res);
-    if(req.query.judge==1) map.findById(req,res);
+    if(req.query.judge==0) cart.findAndCountAll(req,res);
+    if(req.query.judge==1) cart.findById(req,res);
+    if(req.query.judge==2) cart.findByUserId(req,res);
+    if(req.query.judge==3) cart.findByExam(req,res);
+    if(req.query.judge==4) cart.findByJourney(req,res);
+    if(req.query.judge==5) cart.findByFruit(req,res);
 })
-// 一对多
-
-// 多对多
-router.use('/statistic_module',function(req,res){
+router.use('/tran',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.query.judge==0) statistic_module.add(req,res);
-    if(req.query.judge==1) statistic_module.findOrCreate(req,res);
-    if(req.query.judge==2) statistic_module.update_number(req,res);
-    if(req.query.judge==3) statistic_module.findAndCountAll(req,res);
+    if(req.query.judge==0) tran.findAndCountAll(req,res);
+    if(req.query.judge==1) tran.findById(req,res);
+    if(req.query.judge==2) tran.findByUserId(req,res);
+    if(req.query.judge==3) tran.findByExam(req,res);
+    if(req.query.judge==4) tran.findByJourney(req,res);
+    if(req.query.judge==5) tran.findByFruit(req,res);
+})
+router.use('/stock',function(req,res){
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    if(req.query.judge==0) stock.findAndCountAll(req,res);
+    if(req.query.judge==1) stock.findById(req,res);
+    if(req.query.judge==2) stock.findByUserId(req,res);
 })

@@ -1,56 +1,56 @@
 var co = require('co');
 // 导入模型
-const tran = require('../../entity/transaction').tran;
+const cart = require('../../entity/cart').cart;
 const user = require('../../entity/user').user;
 const eitem = require('../../entity/eitem').eitem;
 const jitem = require('../../entity/jitem').jitem;
 const fitem = require('../../entity/fitem').fitem;
 // 关联对象
-tran.belongsTo( user, { foreignKey: 'user_id' });
-tran.belongsTo( eitem, { foreignKey: 'eitem_id'});
-tran.belongsTo( jitem, { foreignKey: 'jiteme_id'});
-tran.belongsTo( fitem, { foreignKey: 'fitem_id' });
+cart.belongsTo( user, { foreignKey: 'user_id' });
+cart.belongsTo( eitem, { foreignKey: 'eitem_id'});
+cart.belongsTo( jitem, { foreignKey: 'jiteme_id'});
+cart.belongsTo( fitem, { foreignKey: 'fitem_id' });
 
 module.exports = {
     // 查询所有
     findAndCountAll(req,res){
-        tran.findAndCountAll({
+        cart.findAndCountAll({
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     },
     // 按id查询
     findById(req,res){
-        tran.findOne({
+        cart.findOne({
             where:{ 'id':req.query.id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     },
     // 按userid查询
     findByUserId(req,res){
-        tran.findAndCountAll({
+        cart.findAndCountAll({
             where:{ 'user_id':req.query.user_id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     },
     // 按考试查询
     findByExam(req,res){
-        tran.findAndCountAll({
+        cart.findAndCountAll({
             where:{ 'eitem_id':req.query.eitem_id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     },
     // 按旅游查询
     findByJourney(req,res){
-        tran.findAndCountAll({
+        cart.findAndCountAll({
             where:{ 'jitem_id':req.query.jitem_id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
     },
     // 按水果查询
     findByFruit(req,res){
-        tran.findAndCountAll({
+        cart.findAndCountAll({
             where:{ 'fitem_id':req.query.fitem_id },
             include: [{ model: user },{ model: eitem},{ model: jitem},{ model: fitem }]
         }).then( msg => { res.send(msg); })
-    },
+    }
 }
