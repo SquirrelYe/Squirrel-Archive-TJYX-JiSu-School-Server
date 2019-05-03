@@ -12,7 +12,9 @@ module.exports = {
     // 查询所有
     findAndCountAll(req,res){
         order.findAndCountAll({
-            include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:logistic}]
+            include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:logistic}],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
     // 按id查询
@@ -26,14 +28,18 @@ module.exports = {
     findByMe(req,res){
         order.findAndCountAll({
             where:{ 'me':req.body.me },
-            include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:logistic}]
+            include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:logistic}],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
     // 按user查询(校园大使)
     findByOther(req,res){
         order.findAndCountAll({
-            where:{ 'me':req.body.other },
-            include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:logistic}]
+            where:{ 'other':req.body.other },
+            include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:logistic}],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     }
 }

@@ -9,7 +9,9 @@ module.exports = {
     // 查询所有
     findAndCountAll(req,res){
         location.findAndCountAll({
-            include:[{ model:user}]
+            include:[{ model:user}],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
     // 按id查询

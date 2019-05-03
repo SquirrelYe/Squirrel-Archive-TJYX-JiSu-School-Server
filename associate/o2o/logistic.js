@@ -11,7 +11,9 @@ module.exports = {
     // 查询所有
     findAndCountAll(req,res){
         logistic.findAndCountAll({
-            include:[{model:user}, {model:location}]
+            include:[{model:user}, {model:location}],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
     // 按id查询
@@ -25,7 +27,9 @@ module.exports = {
     findByUserId(req,res){
         logistic.findAndCountAll({
             where:{ 'user_id':req.body.user_id },
-            include:[{model:user}, {model:location}]
+            include:[{model:user}, {model:location}],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     }
 }

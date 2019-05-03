@@ -4,11 +4,14 @@ const router = express.Router()
 // -------------实体导入-------------
 const user = require('../associate/o2o/user')
 const authen = require('../associate/o2o/authen')
+const info = require('../associate/o2o/info')
 const card = require('../associate/o2o/card')
 const cart = require('../associate/o2o/cart')
+const exam = require('../associate/o2o/exam')
 const eitem = require('../associate/o2o/eitem')
+const fruit = require('../associate/o2o/fruit')
 const fitem = require('../associate/o2o/fitem')
-const info = require('../associate/o2o/info')
+const journey = require('../associate/o2o/journey')
 const jitem = require('../associate/o2o/jitem')
 const location = require('../associate/o2o/location')
 const logistic = require('../associate/o2o/logistic')
@@ -27,6 +30,7 @@ router.use('/user',function(req,res){
     if(req.body.judge==2) user.findOneByOpenId(req,res);
     if(req.body.judge==3) user.findAndCountAllByType(req,res);
     if(req.body.judge==4) user.findAndCountAllBySchool(req,res);
+    if(req.body.judge==5) user.findAndCountAllLikeByName(req,res);
 })
 router.use('/authen',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -66,17 +70,32 @@ router.use('/order',function(req,res){
     if(req.body.judge==2) order.findByMe(req,res);
     if(req.body.judge==3) order.findByOther(req,res);
 })
+router.use('/exam',function(req,res){
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    if(req.body.judge==0) exam.findAndCountAll(req,res);
+    if(req.body.judge==1) exam.findById(req,res);
+})
 router.use('/eitem',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) eitem.findAndCountAll(req,res);
     if(req.body.judge==1) eitem.findById(req,res);
     if(req.body.judge==2) eitem.findByExamId(req,res);
 })
+router.use('/journey',function(req,res){
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    if(req.body.judge==0) journey.findAndCountAll(req,res);
+    if(req.body.judge==1) journey.findById(req,res);
+})
 router.use('/jitem',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) jitem.findAndCountAll(req,res);
     if(req.body.judge==1) jitem.findById(req,res);
     if(req.body.judge==2) jitem.findByJourneyId(req,res);
+})
+router.use('/fruit',function(req,res){
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    if(req.body.judge==0) fruit.findAndCountAll(req,res);
+    if(req.body.judge==1) fruit.findById(req,res);
 })
 router.use('/fitem',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");

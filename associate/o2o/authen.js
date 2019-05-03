@@ -11,7 +11,9 @@ module.exports = {
     // 查询所有
     findAndCountAll(req,res){
         authen.findAndCountAll({
-            include:[{ model:user}, {model:school}]
+            include:[{ model:user}, {model:school}],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
     // 按id查询
@@ -32,7 +34,9 @@ module.exports = {
     findBySchoolId(req,res){
         authen.findAndCountAll({
             where:{ 'school_id':req.body.school_id },
-            include:[{ model:user}, {model:school}]
+            include:[{ model:user}, {model:school}],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     }
 }
