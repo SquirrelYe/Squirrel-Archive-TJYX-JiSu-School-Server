@@ -55,12 +55,13 @@ module.exports = {
         }).then(msg => { res.send(msg); })
     },
     // 模糊搜索 name
-    findAndCountAllLikeByName(req,res){
+    findAndCountAllByTypeLikeByName(req,res){
         user.findAndCountAll({
             where:{
                 'name':{
                     $like:`%${req.body.name}%`
-                }
+                },
+                'type':req.body.type
             },
             include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
         }).then(msg => { res.send(msg); })

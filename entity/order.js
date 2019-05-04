@@ -11,7 +11,7 @@ let order = conn.define(
         'id': { 'type': Sequelize.INTEGER(11), 'allowNull': true, 'primaryKey': true, 'autoIncrement': true },
         'me': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'other': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'location_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'logistic_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'get_at': { 'type': Sequelize.DATE(0), 'allowNull': true },
         'post_at': { 'type': Sequelize.DATE(0), 'allowNull': true },

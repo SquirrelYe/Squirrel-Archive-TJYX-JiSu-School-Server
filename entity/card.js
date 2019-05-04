@@ -37,7 +37,7 @@ module.exports = {
             {
                 where:{ 'id':req.body.id }
             }
-        ).then( msg=>{ res.send(msg); })
+        ).then( msg=>{ res.send({'affectRows':msg}); })
     },
     //更新信息
     update(req,res){

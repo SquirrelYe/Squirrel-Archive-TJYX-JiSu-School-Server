@@ -30,7 +30,7 @@ router.use('/user',function(req,res){
     if(req.body.judge==2) user.findOneByOpenId(req,res);
     if(req.body.judge==3) user.findAndCountAllByType(req,res);
     if(req.body.judge==4) user.findAndCountAllBySchool(req,res);
-    if(req.body.judge==5) user.findAndCountAllLikeByName(req,res);
+    if(req.body.judge==5) user.findAndCountAllByTypeLikeByName(req,res);
 })
 router.use('/authen',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -55,13 +55,15 @@ router.use('/card',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) card.findAndCountAll(req,res);
     if(req.body.judge==1) card.findOneById(req,res);
-    if(req.body.judge==2) card.findOneByUserId(req,res);
+    if(req.body.judge==2) card.findAllByUserId(req,res);
+    if(req.body.judge==3) card.findAndCountAllLikeByName(req,res);
 })
 router.use('/logistic',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) logistic.findAndCountAll(req,res);
     if(req.body.judge==1) logistic.findById(req,res);
     if(req.body.judge==2) logistic.findByUserId(req,res);
+    if(req.body.judge==3) logistic.findAndCountAllLikeByName(req,res);
 })
 router.use('/order',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -74,6 +76,7 @@ router.use('/exam',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) exam.findAndCountAll(req,res);
     if(req.body.judge==1) exam.findById(req,res);
+    if(req.body.judge==2) exam.findAndCountAllLikeByName(req,res);
 })
 router.use('/eitem',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");

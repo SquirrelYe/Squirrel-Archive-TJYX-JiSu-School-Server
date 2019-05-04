@@ -21,5 +21,16 @@ module.exports = {
             where:{ 'id':req.body.id },
             include:[{ model:eitem}]
         }).then( msg => { res.send(msg); })
+    },
+    // 模糊查询 name
+    findAndCountAllLikeByName(req, res) {
+        exam.findAndCountAll({
+            where:{
+                'title': {
+                    $like: `%${req.body.name}%`
+                }
+            },
+            include:[{ model:eitem}]
+        }).then(msg => { res.send(msg); })
     }
 }
