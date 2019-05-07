@@ -30,4 +30,15 @@ module.exports = {
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
+    // 模糊查询 name
+    findAndCountAllLikeByName(req, res) {
+        fitem.findAndCountAll({
+            where:{
+                'title': {
+                    $like: `%${req.body.name}%`
+                }
+            },
+            include:[{ model:fruit}],
+        }).then(msg => { res.send(msg); })
+    }
 }

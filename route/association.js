@@ -83,28 +83,33 @@ router.use('/eitem',function(req,res){
     if(req.body.judge==0) eitem.findAndCountAll(req,res);
     if(req.body.judge==1) eitem.findById(req,res);
     if(req.body.judge==2) eitem.findByExamId(req,res);
+    if(req.body.judge==3) eitem.findAndCountAllLikeByName(req,res);
 })
 router.use('/journey',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) journey.findAndCountAll(req,res);
     if(req.body.judge==1) journey.findById(req,res);
+    if(req.body.judge==2) journey.findAndCountAllLikeByName(req,res);
 })
 router.use('/jitem',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) jitem.findAndCountAll(req,res);
     if(req.body.judge==1) jitem.findById(req,res);
     if(req.body.judge==2) jitem.findByJourneyId(req,res);
+    if(req.body.judge==3) jitem.findAndCountAllLikeByName(req,res);
 })
 router.use('/fruit',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) fruit.findAndCountAll(req,res);
     if(req.body.judge==1) fruit.findById(req,res);
+    if(req.body.judge==2) fruit.findAndCountAllLikeByName(req,res);
 })
 router.use('/fitem',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) fitem.findAndCountAll(req,res);
     if(req.body.judge==1) fitem.findById(req,res);
     if(req.body.judge==2) fitem.findByFruitId(req,res);
+    if(req.body.judge==3) fitem.findAndCountAllLikeByName(req,res);
 })
 router.use('/cart',function(req,res){
     res.setHeader("Access-Control-Allow-Origin", "*");

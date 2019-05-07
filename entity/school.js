@@ -20,7 +20,10 @@ module.exports = {
     school,
     // 查询所有
     findAndCountAll(req,res){
-        school.findAndCountAll().then( msg => { res.send(msg) })       
+        school.findAndCountAll({
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+        }).then( msg => { res.send(msg) })       
     },    
     // 新建信息
     create(req,res){
@@ -37,7 +40,7 @@ module.exports = {
             {
                 where:{ 'id':req.body.id }
             }
-        ).then( msg=>{ res.send(msg); })
+        ).then( msg=>{ res.send({'affectRows':msg}); })
     },
     //更新信息
     update(req,res){
@@ -49,5 +52,15 @@ module.exports = {
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
+    },
+    // 模糊搜索 name
+    findAndCountAllLikeByName(req,res){
+        school.findAndCountAll({
+            where:{
+                'name':{
+                    $like:`%${req.body.name}%`
+                }
+            },
+        }).then(msg => { res.send(msg); })
     }
 };

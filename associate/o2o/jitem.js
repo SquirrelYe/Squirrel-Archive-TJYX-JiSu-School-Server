@@ -30,4 +30,15 @@ module.exports = {
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
+    // 模糊查询 name
+    findAndCountAllLikeByName(req, res) {
+        jitem.findAndCountAll({
+            where:{
+                'name': {
+                    $like: `%${req.body.name}%`
+                }
+            },
+            include:[{ model:journey}],
+        }).then(msg => { res.send(msg); })
+    }
 }

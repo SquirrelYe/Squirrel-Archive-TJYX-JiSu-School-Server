@@ -21,5 +21,16 @@ module.exports = {
             where:{ 'id':req.body.id },
             include:[{ model:fitem}]
         }).then( msg => { res.send(msg); })
+    },
+    // 模糊查询 name
+    findAndCountAllLikeByName(req, res) {
+        fruit.findAndCountAll({
+            where:{
+                'title': {
+                    $like: `%${req.body.name}%`
+                }
+            },
+            include:[{ model:fitem}]
+        }).then(msg => { res.send(msg); })
     }
 }
