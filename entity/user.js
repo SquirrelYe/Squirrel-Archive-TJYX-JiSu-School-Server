@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize')
 const conn = require('../orm/orm').connection();
+const jwt = require('jsonwebtoken')
+const secret = require('../utils/key/secret').token
 
 // 模型层定义
 let user = conn.define(
@@ -44,7 +46,16 @@ module.exports = {
                 'name':req.body.name,
                 'pass':req.body.pass
             }
-        }).then( msg=>{ res.send(msg); })
+        })
+        .then( msg=>{ 
+            if(msg){
+                let encrp = jwt.sign( msg.dataValues , secret ,{ expiresIn:'1h'})
+                let data = { ...msg.dataValues, token:encrp}
+                console.log('token--->',encrp)
+                res.send(data)
+            }
+            else res.status(432).send("登录校验失败") 
+         })
     },    
     //注册用户
     create(req,res){

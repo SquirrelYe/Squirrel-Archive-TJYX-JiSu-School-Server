@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const jwt = require('jsonwebtoken')
+const secret = require('../utils/key/secret').interface  // token 密钥
 
 // -------------实体导入-------------
 const user = require('../entity/user')
@@ -24,10 +26,19 @@ const tran = require('../entity/transaction')
 module.exports = router
 
 // -------------接口导出-------------
-
+router.use((req,res,next)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    let encrp =req.body.data
+    jwt.verify(encrp, secret, (err, dec) => {
+        if (err) res.status(430).send(`接口请求参数解密失败,${err}`)
+        else{
+            req.body = dec
+            next()
+        }
+    })
+})
 // 用户&管理员
 router.use('/user', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
     if(req.body.judge==0) user.findAndCountAll(req,res)
     if(req.body.judge==1) user.create(req,res)
     if(req.body.judge==2) user.delete(req,res)
@@ -38,7 +49,7 @@ router.use('/user', function (req, res) {
 });
 // 学校
 router.use('/school', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) school.findAndCountAll(req, res)
     if(req.body.judge==1) school.create(req, res)
     if(req.body.judge==2) school.delete(req,res)
@@ -47,7 +58,7 @@ router.use('/school', function (req, res) {
 });
 // 认证信息
 router.use('/authen', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) authen.findAndCountAll(req, res)
     if(req.body.judge==1) authen.create(req, res)
     if(req.body.judge==2) authen.delete(req,res)
@@ -55,7 +66,7 @@ router.use('/authen', function (req, res) {
 });
 // 用户信息
 router.use('/info', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) info.findAndCountAll(req, res)
     if(req.body.judge==1) info.create(req, res)
     if(req.body.judge==2) info.delete(req,res)
@@ -63,7 +74,7 @@ router.use('/info', function (req, res) {
 });
 // 地址信息
 router.use('/location', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) location.findAndCountAll(req, res)
     if(req.body.judge==1) location.create(req, res)
     if(req.body.judge==2) location.delete(req,res)
@@ -71,7 +82,7 @@ router.use('/location', function (req, res) {
 });
 // 开卡信息
 router.use('/card', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) card.findAndCountAll(req, res)
     if(req.body.judge==1) card.create(req, res)
     if(req.body.judge==2) card.delete(req,res)
@@ -79,7 +90,7 @@ router.use('/card', function (req, res) {
 });
 // 快递信息
 router.use('/logistic', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) logistic.findAndCountAll(req, res)
     if(req.body.judge==1) logistic.create(req, res)
     if(req.body.judge==2) logistic.delete(req,res)
@@ -87,7 +98,7 @@ router.use('/logistic', function (req, res) {
 });
 // 跑腿订单信息
 router.use('/order', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) order.findAndCountAll(req, res)
     if(req.body.judge==1) order.create(req, res)
     if(req.body.judge==2) order.delete(req,res)
@@ -95,7 +106,7 @@ router.use('/order', function (req, res) {
 });
 // 考试一级信息
 router.use('/exam', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) exam.findAndCountAll(req, res)
     if(req.body.judge==1) exam.create(req, res)
     if(req.body.judge==2) exam.delete(req,res)
@@ -103,7 +114,7 @@ router.use('/exam', function (req, res) {
 });
 // 考试二级信息
 router.use('/eitem', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) eitem.findAndCountAll(req, res)
     if(req.body.judge==1) eitem.create(req, res)
     if(req.body.judge==2) eitem.delete(req,res)
@@ -111,7 +122,7 @@ router.use('/eitem', function (req, res) {
 });
 // 旅游一级信息
 router.use('/journey', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) journey.findAndCountAll(req, res)
     if(req.body.judge==1) journey.create(req, res)
     if(req.body.judge==2) journey.delete(req,res)
@@ -119,7 +130,7 @@ router.use('/journey', function (req, res) {
 });
 // 旅游二级信息
 router.use('/jitem', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) jitem.findAndCountAll(req, res)
     if(req.body.judge==1) jitem.create(req, res)
     if(req.body.judge==2) jitem.delete(req,res)
@@ -127,7 +138,7 @@ router.use('/jitem', function (req, res) {
 });
 // 水果一级信息
 router.use('/fruit', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) fruit.findAndCountAll(req, res)
     if(req.body.judge==1) fruit.create(req, res)
     if(req.body.judge==2) fruit.delete(req,res)
@@ -135,7 +146,7 @@ router.use('/fruit', function (req, res) {
 });
 // 水果二级信息
 router.use('/fitem', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) fitem.findAndCountAll(req, res)
     if(req.body.judge==1) fitem.create(req, res)
     if(req.body.judge==2) fitem.delete(req,res)
@@ -143,7 +154,7 @@ router.use('/fitem', function (req, res) {
 });
 // 购物车信息
 router.use('/cart', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) cart.findAndCountAll(req, res)
     if(req.body.judge==1) cart.create(req, res)
     if(req.body.judge==2) cart.delete(req,res)
@@ -151,7 +162,7 @@ router.use('/cart', function (req, res) {
 });
 // 总订单信息
 router.use('/tran', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) tran.findAndCountAll(req, res)
     if(req.body.judge==1) tran.create(req, res)
     if(req.body.judge==2) tran.delete(req,res)
@@ -159,7 +170,7 @@ router.use('/tran', function (req, res) {
 });
 // 资金信息
 router.use('/stock', function (req, res) { 
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    
     if(req.body.judge==0) stock.findAndCountAll(req, res)
     if(req.body.judge==1) stock.create(req, res)
     if(req.body.judge==2) stock.delete(req,res)

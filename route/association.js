@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const jwt = require('jsonwebtoken')
+const secret = require('../utils/key/secret').interface  // token 密钥
 
 // -------------实体导入-------------
 const user = require('../associate/o2o/user')
@@ -21,117 +23,112 @@ const tran = require('../associate/o2o/transaction')
 
 
 module.exports = router
-
+// 解密
+router.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    let encrp = req.body.data
+    jwt.verify(encrp, secret, (err, dec) => {
+        if (err) res.status(430).send(`接口请求参数解密失败,${err}`)
+        else {
+            req.body = dec
+            next()
+        }
+    })
+})
 // 一对一
-router.use('/user',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) user.findAndCountAll(req,res);
-    if(req.body.judge==1) user.findOneById(req,res);
-    if(req.body.judge==2) user.findOneByOpenId(req,res);
-    if(req.body.judge==3) user.findAndCountAllByType(req,res);
-    if(req.body.judge==4) user.findAndCountAllBySchool(req,res);
-    if(req.body.judge==5) user.findAndCountAllByTypeLikeByName(req,res);
+router.use('/user', function (req, res) {
+    if (req.body.judge == 0) user.findAndCountAll(req, res);
+    if (req.body.judge == 1) user.findOneById(req, res);
+    if (req.body.judge == 2) user.findOneByOpenId(req, res);
+    if (req.body.judge == 3) user.findAndCountAllByType(req, res);
+    if (req.body.judge == 4) user.findAndCountAllBySchool(req, res);
+    if (req.body.judge == 5) user.findAndCountAllByTypeLikeByName(req, res);
 })
-router.use('/authen',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) authen.findAndCountAll(req,res);
-    if(req.body.judge==1) authen.findById(req,res);
-    if(req.body.judge==2) authen.findByUserId(req,res);
-    if(req.body.judge==3) authen.findBySchoolId(req,res);
+router.use('/authen', function (req, res) {
+    if (req.body.judge == 0) authen.findAndCountAll(req, res);
+    if (req.body.judge == 1) authen.findById(req, res);
+    if (req.body.judge == 2) authen.findByUserId(req, res);
+    if (req.body.judge == 3) authen.findBySchoolId(req, res);
 })
-router.use('/info',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) info.findAndCountAll(req,res);
-    if(req.body.judge==1) info.findById(req,res);
-    if(req.body.judge==2) info.findByUserId(req,res);
+router.use('/info', function (req, res) {
+    if (req.body.judge == 0) info.findAndCountAll(req, res);
+    if (req.body.judge == 1) info.findById(req, res);
+    if (req.body.judge == 2) info.findByUserId(req, res);
 })
-router.use('/location',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) location.findAndCountAll(req,res);
-    if(req.body.judge==1) location.findById(req,res);
-    if(req.body.judge==2) location.findByUserId(req,res);
+router.use('/location', function (req, res) {
+    if (req.body.judge == 0) location.findAndCountAll(req, res);
+    if (req.body.judge == 1) location.findById(req, res);
+    if (req.body.judge == 2) location.findByUserId(req, res);
 })
-router.use('/card',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) card.findAndCountAll(req,res);
-    if(req.body.judge==1) card.findOneById(req,res);
-    if(req.body.judge==2) card.findAllByUserId(req,res);
-    if(req.body.judge==3) card.findAndCountAllLikeByName(req,res);
+router.use('/card', function (req, res) {
+    if (req.body.judge == 0) card.findAndCountAll(req, res);
+    if (req.body.judge == 1) card.findOneById(req, res);
+    if (req.body.judge == 2) card.findAllByUserId(req, res);
+    if (req.body.judge == 3) card.findAndCountAllLikeByName(req, res);
 })
-router.use('/logistic',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) logistic.findAndCountAll(req,res);
-    if(req.body.judge==1) logistic.findById(req,res);
-    if(req.body.judge==2) logistic.findByUserId(req,res);
-    if(req.body.judge==3) logistic.findAndCountAllLikeByName(req,res);
+router.use('/logistic', function (req, res) {
+    if (req.body.judge == 0) logistic.findAndCountAll(req, res);
+    if (req.body.judge == 1) logistic.findById(req, res);
+    if (req.body.judge == 2) logistic.findByUserId(req, res);
+    if (req.body.judge == 3) logistic.findAndCountAllLikeByName(req, res);
 })
-router.use('/order',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) order.findAndCountAll(req,res);
-    if(req.body.judge==1) order.findById(req,res);
-    if(req.body.judge==2) order.findByMe(req,res);
-    if(req.body.judge==3) order.findByOther(req,res);
+router.use('/order', function (req, res) {
+    if (req.body.judge == 0) order.findAndCountAll(req, res);
+    if (req.body.judge == 1) order.findById(req, res);
+    if (req.body.judge == 2) order.findByMe(req, res);
+    if (req.body.judge == 3) order.findByOther(req, res);
 })
-router.use('/exam',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) exam.findAndCountAll(req,res);
-    if(req.body.judge==1) exam.findById(req,res);
-    if(req.body.judge==2) exam.findAndCountAllLikeByName(req,res);
+router.use('/exam', function (req, res) {
+    if (req.body.judge == 0) exam.findAndCountAll(req, res);
+    if (req.body.judge == 1) exam.findById(req, res);
+    if (req.body.judge == 2) exam.findAndCountAllLikeByName(req, res);
 })
-router.use('/eitem',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) eitem.findAndCountAll(req,res);
-    if(req.body.judge==1) eitem.findById(req,res);
-    if(req.body.judge==2) eitem.findByExamId(req,res);
-    if(req.body.judge==3) eitem.findAndCountAllLikeByName(req,res);
+router.use('/eitem', function (req, res) {
+    if (req.body.judge == 0) eitem.findAndCountAll(req, res);
+    if (req.body.judge == 1) eitem.findById(req, res);
+    if (req.body.judge == 2) eitem.findByExamId(req, res);
+    if (req.body.judge == 3) eitem.findAndCountAllLikeByName(req, res);
 })
-router.use('/journey',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) journey.findAndCountAll(req,res);
-    if(req.body.judge==1) journey.findById(req,res);
-    if(req.body.judge==2) journey.findAndCountAllLikeByName(req,res);
+router.use('/journey', function (req, res) {
+    if (req.body.judge == 0) journey.findAndCountAll(req, res);
+    if (req.body.judge == 1) journey.findById(req, res);
+    if (req.body.judge == 2) journey.findAndCountAllLikeByName(req, res);
 })
-router.use('/jitem',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) jitem.findAndCountAll(req,res);
-    if(req.body.judge==1) jitem.findById(req,res);
-    if(req.body.judge==2) jitem.findByJourneyId(req,res);
-    if(req.body.judge==3) jitem.findAndCountAllLikeByName(req,res);
+router.use('/jitem', function (req, res) {
+    if (req.body.judge == 0) jitem.findAndCountAll(req, res);
+    if (req.body.judge == 1) jitem.findById(req, res);
+    if (req.body.judge == 2) jitem.findByJourneyId(req, res);
+    if (req.body.judge == 3) jitem.findAndCountAllLikeByName(req, res);
 })
-router.use('/fruit',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) fruit.findAndCountAll(req,res);
-    if(req.body.judge==1) fruit.findById(req,res);
-    if(req.body.judge==2) fruit.findAndCountAllLikeByName(req,res);
+router.use('/fruit', function (req, res) {
+    if (req.body.judge == 0) fruit.findAndCountAll(req, res);
+    if (req.body.judge == 1) fruit.findById(req, res);
+    if (req.body.judge == 2) fruit.findAndCountAllLikeByName(req, res);
 })
-router.use('/fitem',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) fitem.findAndCountAll(req,res);
-    if(req.body.judge==1) fitem.findById(req,res);
-    if(req.body.judge==2) fitem.findByFruitId(req,res);
-    if(req.body.judge==3) fitem.findAndCountAllLikeByName(req,res);
+router.use('/fitem', function (req, res) {
+    if (req.body.judge == 0) fitem.findAndCountAll(req, res);
+    if (req.body.judge == 1) fitem.findById(req, res);
+    if (req.body.judge == 2) fitem.findByFruitId(req, res);
+    if (req.body.judge == 3) fitem.findAndCountAllLikeByName(req, res);
 })
-router.use('/cart',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) cart.findAndCountAll(req,res);
-    if(req.body.judge==1) cart.findById(req,res);
-    if(req.body.judge==2) cart.findByUserId(req,res);
-    if(req.body.judge==3) cart.findByExam(req,res);
-    if(req.body.judge==4) cart.findByJourney(req,res);
-    if(req.body.judge==5) cart.findByFruit(req,res);
+router.use('/cart', function (req, res) {
+    if (req.body.judge == 0) cart.findAndCountAll(req, res);
+    if (req.body.judge == 1) cart.findById(req, res);
+    if (req.body.judge == 2) cart.findByUserId(req, res);
+    if (req.body.judge == 3) cart.findByExam(req, res);
+    if (req.body.judge == 4) cart.findByJourney(req, res);
+    if (req.body.judge == 5) cart.findByFruit(req, res);
 })
-router.use('/tran',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) tran.findAndCountAll(req,res);
-    if(req.body.judge==1) tran.findById(req,res);
-    if(req.body.judge==2) tran.findByUserId(req,res);
-    if(req.body.judge==3) tran.findByExam(req,res);
-    if(req.body.judge==4) tran.findByJourney(req,res);
-    if(req.body.judge==5) tran.findByFruit(req,res);
+router.use('/tran', function (req, res) {
+    if (req.body.judge == 0) tran.findAndCountAll(req, res);
+    if (req.body.judge == 1) tran.findById(req, res);
+    if (req.body.judge == 2) tran.findByUserId(req, res);
+    if (req.body.judge == 3) tran.findByExam(req, res);
+    if (req.body.judge == 4) tran.findByJourney(req, res);
+    if (req.body.judge == 5) tran.findByFruit(req, res);
 })
-router.use('/stock',function(req,res){
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    if(req.body.judge==0) stock.findAndCountAll(req,res);
-    if(req.body.judge==1) stock.findById(req,res);
-    if(req.body.judge==2) stock.findByUserId(req,res);
+router.use('/stock', function (req, res) {
+    if (req.body.judge == 0) stock.findAndCountAll(req, res);
+    if (req.body.judge == 1) stock.findById(req, res);
+    if (req.body.judge == 2) stock.findByUserId(req, res);
 })

@@ -19,23 +19,27 @@ server.use(log.log4js.connectLogger(log.loggerExpress))
 var objmulter = multer({ dest: "./www/upload" });    //dest指定上传文件地址
 server.use(objmulter.any());
 
-const secret = 'yx'  // token 密钥
+const secret = require('./utils/key/secret').token  // token 密钥
 server.use((req, res, next) => {
-    // 校验token
-    let token = req.get("Authorization")
-    console.log(token)
-    jwt.verify(token, secret, (err, dec) => {
-        if (err) res.send(err)
-        else res.send(dec)
-      })
     // 允许所有请求
-    // res.header("Access-Control-Allow-Origin", "*");
-    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,Authorization");
-    // if (req.method != 'POST') {
-    //     res.sendStatus(502)
-    // } else {
-    //     next();
-    // }
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,Authorization");
+    if(req.url == '/ent/user' || req.url =='/upload') next();
+    else{
+        // 校验token
+        let token = req.get("Authorization")
+        jwt.verify(token, secret, (err, dec) => {
+            if (err) res.status(431).send('token失效，请重新登录')
+            else{
+                if (req.method != 'POST') {
+                    res.status(440).send('请求方法错误，仅能使用POST请求')
+                } else {
+                    // console.log('token解密数据',dec)
+                    next();
+                }
+            }
+        }) 
+    } 
 });
 
 // 加载外部router

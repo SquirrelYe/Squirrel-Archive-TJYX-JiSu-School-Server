@@ -2,7 +2,6 @@
 const fs = require('fs');
 const path = require('path');
 function upload(req,res){
-    console.log(req.files)
     if (req.files.length == 0)  res.send({ 'status': -1, 'info': null }); 
     else {
         //获取原始文件扩展名
