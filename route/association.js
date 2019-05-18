@@ -10,10 +10,13 @@ const info = require('../associate/o2o/info')
 const card = require('../associate/o2o/card')
 const cart = require('../associate/o2o/cart')
 const exam = require('../associate/o2o/exam')
+const mexam = require('../associate/o2o/mexam')
 const eitem = require('../associate/o2o/eitem')
 const fruit = require('../associate/o2o/fruit')
+const mfruit = require('../associate/o2o/mfruit')
 const fitem = require('../associate/o2o/fitem')
 const journey = require('../associate/o2o/journey')
+const mjourney = require('../associate/o2o/mjourney')
 const jitem = require('../associate/o2o/jitem')
 const location = require('../associate/o2o/location')
 const logistic = require('../associate/o2o/logistic')
@@ -83,10 +86,16 @@ router.use('/exam', function (req, res) {
     if (req.body.judge == 1) exam.findById(req, res);
     if (req.body.judge == 2) exam.findAndCountAllLikeByName(req, res);
 })
+router.use('/mexam', function (req, res) {
+    if (req.body.judge == 0) mexam.findAndCountAll(req, res);
+    if (req.body.judge == 1) mexam.findById(req, res);
+    if (req.body.judge == 2) mexam.findByExamId(req, res);
+    if (req.body.judge == 3) mexam.findAndCountAllLikeByName(req, res);
+})
 router.use('/eitem', function (req, res) {
     if (req.body.judge == 0) eitem.findAndCountAll(req, res);
     if (req.body.judge == 1) eitem.findById(req, res);
-    if (req.body.judge == 2) eitem.findByExamId(req, res);
+    if (req.body.judge == 2) eitem.findByMexamId(req, res);
     if (req.body.judge == 3) eitem.findAndCountAllLikeByName(req, res);
 })
 router.use('/journey', function (req, res) {
@@ -94,10 +103,16 @@ router.use('/journey', function (req, res) {
     if (req.body.judge == 1) journey.findById(req, res);
     if (req.body.judge == 2) journey.findAndCountAllLikeByName(req, res);
 })
+router.use('/mjourney', function (req, res) {
+    if (req.body.judge == 0) mjourney.findAndCountAll(req, res);
+    if (req.body.judge == 1) mjourney.findById(req, res);
+    if (req.body.judge == 2) mjourney.findByJourneyId(req, res);
+    if (req.body.judge == 3) mjourney.findAndCountAllLikeByName(req, res);
+})
 router.use('/jitem', function (req, res) {
     if (req.body.judge == 0) jitem.findAndCountAll(req, res);
     if (req.body.judge == 1) jitem.findById(req, res);
-    if (req.body.judge == 2) jitem.findByJourneyId(req, res);
+    if (req.body.judge == 2) jitem.findByMjourneyId(req, res);
     if (req.body.judge == 3) jitem.findAndCountAllLikeByName(req, res);
 })
 router.use('/fruit', function (req, res) {
@@ -105,10 +120,16 @@ router.use('/fruit', function (req, res) {
     if (req.body.judge == 1) fruit.findById(req, res);
     if (req.body.judge == 2) fruit.findAndCountAllLikeByName(req, res);
 })
+router.use('/mfruit', function (req, res) {
+    if (req.body.judge == 0) mfruit.findAndCountAll(req, res);
+    if (req.body.judge == 1) mfruit.findById(req, res);
+    if (req.body.judge == 2) mfruit.findByFruitId(req, res);
+    if (req.body.judge == 3) mfruit.findAndCountAllLikeByName(req, res);
+})
 router.use('/fitem', function (req, res) {
     if (req.body.judge == 0) fitem.findAndCountAll(req, res);
     if (req.body.judge == 1) fitem.findById(req, res);
-    if (req.body.judge == 2) fitem.findByFruitId(req, res);
+    if (req.body.judge == 2) fitem.findByMfruitId(req, res);
     if (req.body.judge == 3) fitem.findAndCountAllLikeByName(req, res);
 })
 router.use('/cart', function (req, res) {

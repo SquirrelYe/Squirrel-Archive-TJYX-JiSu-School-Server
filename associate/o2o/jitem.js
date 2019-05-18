@@ -1,15 +1,16 @@
 var co = require('co');
 // 导入模型
 const jitem = require('../../entity/jitem').jitem;
-const journey = require('../../entity/journey').journey
+const mjourney = require('../../entity/mjourney').mjourney
 // 关联对象
-jitem.belongsTo(journey, { foreignKey: 'journey_id'});
+jitem.belongsTo(mjourney, { foreignKey: 'mjourney_id'});
+mjourney.hasMany(jitem)
 
 module.exports = {
     // 查询所有
     findAndCountAll(req,res){
         jitem.findAndCountAll({
-            include:[{ model:journey}],
+            include:[{ model:mjourney}],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
@@ -18,14 +19,14 @@ module.exports = {
     findById(req,res){
         jitem.findOne({
             where:{ 'id':req.body.id },
-            include:[{ model:journey}]
+            include:[{ model:mjourney}]
         }).then( msg => { res.send(msg); })
     },
-    // 按examid查询
-    findByJourneyId(req,res){
+    // 按mjourney_id查询
+    findByMjourneyId(req,res){
         jitem.findAndCountAll({
-            where:{ 'journey_id':req.body.journey_id },
-            include:[{ model:journey}],
+            where:{ 'mjourney_id':req.body.mjourney_id },
+            include:[{ model:mjourney}],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
@@ -38,7 +39,7 @@ module.exports = {
                     $like: `%${req.body.name}%`
                 }
             },
-            include:[{ model:journey}],
+            include:[{ model:mjourney}],
         }).then(msg => { res.send(msg); })
     }
 }

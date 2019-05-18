@@ -1,16 +1,16 @@
 var co = require('co');
 // 导入模型
-const eitem = require('../../entity/eitem').eitem;
 const exam = require('../../entity/exam').exam
+const mexam = require('../../entity/mexam').mexam
 // 关联对象
-eitem.belongsTo(exam, { foreignKey: 'exam_id'});
-exam.hasMany(eitem)
+mexam.belongsTo(exam, { foreignKey: 'exam_id'});
+exam.hasMany(mexam)
 
 module.exports = {
     // 查询所有
     findAndCountAll(req,res){
         exam.findAndCountAll({
-            include:[{ model:eitem}],
+            include:[{ model:mexam}],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
@@ -19,7 +19,7 @@ module.exports = {
     findById(req,res){
         exam.findOne({
             where:{ 'id':req.body.id },
-            include:[{ model:eitem}]
+            include:[{ model:mexam}]
         }).then( msg => { res.send(msg); })
     },
     // 模糊查询 name
@@ -30,7 +30,7 @@ module.exports = {
                     $like: `%${req.body.name}%`
                 }
             },
-            include:[{ model:eitem}]
+            include:[{ model:mexam}]
         }).then(msg => { res.send(msg); })
     }
 }

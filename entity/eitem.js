@@ -14,7 +14,7 @@ let eitem = conn.define(
         'title': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'price': { 'type': Sequelize.DOUBLE(10), 'allowNull': true },
         'detail': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'exam_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'mexam_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
     }
 );
@@ -35,7 +35,7 @@ module.exports = {
             'title':req.body.title,
             'price':req.body.price,
             'detail':req.body.detail,
-            'exam_id':req.body.exam_id,
+            'mexam_id':req.body.mexam_id,
             'condition':req.body.condition
         }).then( msg=>{ res.send(msg); })
     },
@@ -56,7 +56,7 @@ module.exports = {
                 'title':req.body.title,
                 'price':req.body.price,
                 'detail':req.body.detail,
-                'exam_id':req.body.exam_id,
+                'mexam_id':req.body.mexam_id,
                 'condition':req.body.condition
             },
             {   'where':{ 'id':req.body.id }

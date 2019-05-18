@@ -39,7 +39,8 @@ server.use((req, res, next) => {
                 }
             }
         }) 
-    } 
+    }
+    // next()
 });
 
 // 加载外部router

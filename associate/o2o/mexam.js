@@ -1,45 +1,45 @@
 var co = require('co');
 // 导入模型
-const fitem = require('../../entity/fitem').fitem;
-const mfruit = require('../../entity/mfruit').mfruit
+const mexam = require('../../entity/mexam').mexam
+const eitem = require('../../entity/eitem').eitem;
 // 关联对象
-fitem.belongsTo(mfruit, { foreignKey: 'mfruit_id'});
-mfruit.hasMany(fitem)
+eitem.belongsTo(mexam, { foreignKey: 'mexam_id'});
+mexam.hasMany(eitem)
 
 module.exports = {
     // 查询所有
     findAndCountAll(req,res){
-        fitem.findAndCountAll({
-            include:[{ model:mfruit}],
+        mexam.findAndCountAll({
+            include:[{ model: eitem }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
     // 按id查询
     findById(req,res){
-        fitem.findOne({
+        mexam.findOne({
             where:{ 'id':req.body.id },
-            include:[{ model:mfruit}]
+            include:[{ model: eitem }],
         }).then( msg => { res.send(msg); })
     },
-    // 按mfruit_id查询
-    findByMfruitId(req,res){
-        fitem.findAndCountAll({
-            where:{ 'mfruit_id':req.body.mfruit_id },
-            include:[{ model:mfruit}],
+    // 按mexamid查询
+    findByExamId(req,res){
+        mexam.findAndCountAll({
+            where:{ 'exam_id':req.body.exam_id },
+            include:[{ model: eitem }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
     // 模糊查询 name
     findAndCountAllLikeByName(req, res) {
-        fitem.findAndCountAll({
+        mexam.findAndCountAll({
             where:{
                 'title': {
-                    $like: `%${req.body.name}%`
+                    $like: `%${req.body.title}%`
                 }
             },
-            include:[{ model:mfruit}],
+            include:[{ model: eitem }],
         }).then(msg => { res.send(msg); })
     }
 }

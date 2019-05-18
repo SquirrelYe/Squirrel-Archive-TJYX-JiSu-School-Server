@@ -1,16 +1,16 @@
 var co = require('co');
 // 导入模型
-const fitem = require('../../entity/fitem').fitem;
 const fruit = require('../../entity/fruit').fruit
+const mfruit = require('../../entity/mfruit').mfruit;
 // 关联对象
-fitem.belongsTo(fruit, { foreignKey: 'fruit_id'});
-fruit.hasMany(fitem)
+mfruit.belongsTo(fruit, { foreignKey: 'fruit_id'});
+fruit.hasMany(mfruit)
 
 module.exports = {
     // 查询所有
     findAndCountAll(req,res){
         fruit.findAndCountAll({
-            include:[{ model:fitem}],
+            include:[{ model:mfruit}],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
@@ -19,7 +19,7 @@ module.exports = {
     findById(req,res){
         fruit.findOne({
             where:{ 'id':req.body.id },
-            include:[{ model:fitem}]
+            include:[{ model:mfruit}]
         }).then( msg => { res.send(msg); })
     },
     // 模糊查询 name
@@ -30,7 +30,7 @@ module.exports = {
                     $like: `%${req.body.name}%`
                 }
             },
-            include:[{ model:fitem}]
+            include:[{ model:mfruit}]
         }).then(msg => { res.send(msg); })
     }
 }

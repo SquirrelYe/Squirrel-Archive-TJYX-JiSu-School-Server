@@ -14,7 +14,7 @@ let fitem = conn.define(
         'title': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'price': { 'type': Sequelize.DOUBLE(10), 'allowNull': true },
         'detail': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'fruit_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'mfruit_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
     }
 );
@@ -35,7 +35,7 @@ module.exports = {
             'title':req.body.title,
             'price':req.body.price,
             'detail':req.body.detail,
-            'fruit_id':req.body.fruit_id,
+            'mfruit_id':req.body.mfruit_id,
             'condition':req.body.condition
         }).then( msg=>{ res.send(msg); })
     },
@@ -56,7 +56,7 @@ module.exports = {
                 'title':req.body.title,
                 'price':req.body.price,
                 'detail':req.body.detail,
-                'fruit_id':req.body.fruit_id,
+                'mfruit_id':req.body.mfruit_id,
                 'condition':req.body.condition
             },
             {   'where':{ 'id':req.body.id }

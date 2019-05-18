@@ -1,16 +1,16 @@
 var co = require('co');
 // 导入模型
-const jitem = require('../../entity/jitem').jitem;
+const mjourney = require('../../entity/mjourney').mjourney;
 const journey = require('../../entity/journey').journey
 // 关联对象
-jitem.belongsTo(journey, { foreignKey: 'journey_id'});
-journey.hasMany(jitem)
+mjourney.belongsTo(journey, { foreignKey: 'journey_id'});
+journey.hasMany(mjourney)
 
 module.exports = {
     // 查询所有
     findAndCountAll(req,res){
         journey.findAndCountAll({
-            include:[{ model:jitem}],
+            include:[{ model:mjourney}],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
@@ -19,7 +19,7 @@ module.exports = {
     findById(req,res){
         journey.findOne({
             where:{ 'id':req.body.id },
-            include:[{ model:jitem}]
+            include:[{ model:mjourney}]
         }).then( msg => { res.send(msg); })
     },
     // 模糊查询 name
@@ -30,7 +30,7 @@ module.exports = {
                     $like: `%${req.body.name}%`
                 }
             },
-            include:[{ model:jitem}]
+            include:[{ model:mjourney}]
         }).then(msg => { res.send(msg); })
     }
 }
