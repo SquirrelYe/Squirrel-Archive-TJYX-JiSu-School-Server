@@ -10,11 +10,14 @@ const card = require('../entity/card')
 const cart = require('../entity/cart')
 const eitem = require('../entity/eitem')
 const exam = require('../entity/exam')
+const mexam = require('../entity/mexam')
 const fitem = require('../entity/fitem')
 const fruit = require('../entity/fruit')
+const mfruit = require('../entity/mfruit')
 const info = require('../entity/info')
 const jitem = require('../entity/jitem')
 const journey = require('../entity/journey')
+const mjourney = require('../entity/mjourney')
 const location = require('../entity/location')
 const logistic = require('../entity/logistic')
 const order = require('../entity/order')
@@ -106,15 +109,20 @@ router.use('/order', function (req, res) {
 });
 // 考试一级信息
 router.use('/exam', function (req, res) { 
-    
     if(req.body.judge==0) exam.findAndCountAll(req, res)
     if(req.body.judge==1) exam.create(req, res)
     if(req.body.judge==2) exam.delete(req,res)
     if(req.body.judge==3) exam.update(req,res)
 });
-// 考试二级信息
+// 考试二级菜单
+router.use('/mexam', function (req, res) { 
+    if(req.body.judge==0) mexam.findAndCountAll(req, res)
+    if(req.body.judge==1) mexam.create(req, res)
+    if(req.body.judge==2) mexam.delete(req,res)
+    if(req.body.judge==3) mexam.update(req,res)
+});
+// 考试项目
 router.use('/eitem', function (req, res) { 
-    
     if(req.body.judge==0) eitem.findAndCountAll(req, res)
     if(req.body.judge==1) eitem.create(req, res)
     if(req.body.judge==2) eitem.delete(req,res)
@@ -122,13 +130,19 @@ router.use('/eitem', function (req, res) {
 });
 // 旅游一级信息
 router.use('/journey', function (req, res) { 
-    
     if(req.body.judge==0) journey.findAndCountAll(req, res)
     if(req.body.judge==1) journey.create(req, res)
     if(req.body.judge==2) journey.delete(req,res)
     if(req.body.judge==3) journey.update(req,res)
 });
-// 旅游二级信息
+// 旅游二级菜单
+router.use('/mjourney', function (req, res) { 
+    if(req.body.judge==0) mjourney.findAndCountAll(req, res)
+    if(req.body.judge==1) mjourney.create(req, res)
+    if(req.body.judge==2) mjourney.delete(req,res)
+    if(req.body.judge==3) mjourney.update(req,res)
+});
+// 旅游项目
 router.use('/jitem', function (req, res) { 
     
     if(req.body.judge==0) jitem.findAndCountAll(req, res)
@@ -144,7 +158,14 @@ router.use('/fruit', function (req, res) {
     if(req.body.judge==2) fruit.delete(req,res)
     if(req.body.judge==3) fruit.update(req,res)
 });
-// 水果二级信息
+// 水果二级菜单
+router.use('/mfruit', function (req, res) { 
+    if(req.body.judge==0) mfruit.findAndCountAll(req, res)
+    if(req.body.judge==1) mfruit.create(req, res)
+    if(req.body.judge==2) mfruit.delete(req,res)
+    if(req.body.judge==3) mfruit.update(req,res)
+});
+// 水果项目
 router.use('/fitem', function (req, res) { 
     
     if(req.body.judge==0) fitem.findAndCountAll(req, res)
