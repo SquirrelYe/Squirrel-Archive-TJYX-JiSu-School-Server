@@ -10,8 +10,13 @@ let card = conn.define(
     {
         'id': { 'type': Sequelize.INTEGER(11), 'allowNull': true, 'primaryKey': true, 'autoIncrement': true },
         'user_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'price': { 'type': Sequelize.DOUBLE(10,2), 'allowNull': true },
         'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'location_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
+        'name': { 'type': Sequelize.CHAR(255), 'allowNull': true },
+        'phone': { 'type': Sequelize.CHAR(255), 'allowNull': true },
+        'school': { 'type': Sequelize.CHAR(255), 'allowNull': true },
+        'dom': { 'type': Sequelize.CHAR(255), 'allowNull': true }  ,
+        'detail': { 'type': Sequelize.CHAR(255), 'allowNull': true }         
     }
 );
 
@@ -27,8 +32,13 @@ module.exports = {
         card.create({
             'id':null,
             'user_id':req.body.user_id,
+            'price':req.body.price,
             'condition':req.body.condition,
-            'location_id':req.body.location_id
+            'name':req.body.name,
+            'phone':req.body.phone,
+            'school':req.body.school,
+            'dom':req.body.dom,
+            'detail':req.body.detail
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
@@ -44,8 +54,13 @@ module.exports = {
         card.update(
             {
                 'user_id':req.body.user_id,
+                'price':req.body.price,
                 'condition':req.body.condition,
-                'location_id':req.body.location_id
+                'name':req.body.name,
+                'phone':req.body.phone,
+                'school':req.body.school,
+                'dom':req.body.dom,
+                'detail':req.body.detail
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
