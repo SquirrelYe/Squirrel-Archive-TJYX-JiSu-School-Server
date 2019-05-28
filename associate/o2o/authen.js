@@ -38,5 +38,17 @@ module.exports = {
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
+    },
+    // 模糊查询 name
+    findAndCountAllLikeByName(req, res) {
+        authen.findAndCountAll({            
+            include:[{ model:user}, {model:school}],
+            where:{
+                'name': {
+                    $like: `%${req.body.name}%`
+                }
+            } 
+        }).then(msg => { res.send(msg); })
     }
+
 }

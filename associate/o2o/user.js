@@ -65,5 +65,17 @@ module.exports = {
             },
             include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
         }).then(msg => { res.send(msg); })
+    },
+    // 查询所有校园大使
+    findAndCountAllXYDS(req,res){
+        user.findAndCountAll({
+            where:{
+                'type':req.body.type,
+                'authen_id':{ $not: null }
+            },
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+            include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
+        }).then(msg => { res.send(msg); })
     }
 }

@@ -46,12 +46,14 @@ router.use('/user', function (req, res) {
     if (req.body.judge == 3) user.findAndCountAllByType(req, res);
     if (req.body.judge == 4) user.findAndCountAllBySchool(req, res);
     if (req.body.judge == 5) user.findAndCountAllByTypeLikeByName(req, res);
+    if (req.body.judge == 6) user.findAndCountAllXYDS(req, res);
 })
 router.use('/authen', function (req, res) {
     if (req.body.judge == 0) authen.findAndCountAll(req, res);
     if (req.body.judge == 1) authen.findById(req, res);
     if (req.body.judge == 2) authen.findByUserId(req, res);
     if (req.body.judge == 3) authen.findBySchoolId(req, res);
+    if (req.body.judge == 4) authen.findAndCountAllLikeByName(req, res);
 })
 router.use('/info', function (req, res) {
     if (req.body.judge == 0) info.findAndCountAll(req, res);
