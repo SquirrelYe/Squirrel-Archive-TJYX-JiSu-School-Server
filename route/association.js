@@ -23,20 +23,24 @@ const logistic = require('../associate/o2o/logistic')
 const order = require('../associate/o2o/order')
 const stock = require('../associate/o2o/stock')
 const tran = require('../associate/o2o/transaction')
+const lsend = require('../associate/o2o/lsend')
+const tixian = require('../associate/o2o/tixian')
 
 
 module.exports = router
 // 解密
 router.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    let encrp = req.body.data
-    jwt.verify(encrp, secret, (err, dec) => {
-        if (err) res.status(430).send(`接口请求参数解密失败,${err}`)
-        else {
-            req.body = dec
-            next()
-        }
-    })
+    if(req.body.ceshi) next();
+    else{
+        let encrp = req.body.data
+        jwt.verify(encrp, secret, (err, dec) => {
+            if (err) res.status(430).send(`接口请求参数解密失败,${err}`)
+            else {
+                req.body = {...dec , 'school_id':req.get("school_id") }
+                next()
+            }
+        })
+    }
 })
 // 一对一
 router.use('/user', function (req, res) {
@@ -76,6 +80,14 @@ router.use('/logistic', function (req, res) {
     if (req.body.judge == 1) logistic.findById(req, res);
     if (req.body.judge == 2) logistic.findByUserId(req, res);
     if (req.body.judge == 3) logistic.findAndCountAllLikeByName(req, res);
+})
+router.use('/lsend', function (req, res) {
+    if (req.body.judge == 0) lsend.findAndCountAll(req, res);
+    if (req.body.judge == 1) lsend.findById(req, res);
+    if (req.body.judge == 2) lsend.findByUserId(req, res);
+    if (req.body.judge == 3) lsend.findBySchoolId(req, res);
+    if (req.body.judge == 4) lsend.findAndCountAllLikeByCusName(req, res);
+    if (req.body.judge == 5) lsend.findAndCountAllLikeByTakName(req, res);
 })
 router.use('/order', function (req, res) {
     if (req.body.judge == 0) order.findAndCountAll(req, res);
@@ -154,4 +166,11 @@ router.use('/stock', function (req, res) {
     if (req.body.judge == 0) stock.findAndCountAll(req, res);
     if (req.body.judge == 1) stock.findById(req, res);
     if (req.body.judge == 2) stock.findByUserId(req, res);
+})
+router.use('/tixian', function (req, res) {
+    if (req.body.judge == 0) tixian.findAndCountAll(req, res);
+    if (req.body.judge == 1) tixian.findById(req, res);
+    if (req.body.judge == 2) tixian.findByUserId(req, res);
+    if (req.body.judge == 3) tixian.findBySchoolId(req, res);
+    if (req.body.judge == 4) tixian.findAndCountAllLikeByUserName(req, res);
 })

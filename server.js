@@ -24,6 +24,8 @@ server.use((req, res, next) => {
     // 允许所有请求
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,Authorization");
+    // 测试
+    if(req.body.ceshi) next();
     if(req.url == '/ent/user' || req.url =='/upload') next();
     else{
         // 校验token

@@ -24,21 +24,26 @@ const order = require('../entity/order')
 const school = require('../entity/school')
 const stock = require('../entity/stock')
 const tran = require('../entity/transaction')
+const lsend = require('../entity/lsend')
+const tixian = require('../entity/tixian')
 
 
 module.exports = router
 
 // -------------接口导出-------------
 router.use((req,res,next)=>{
-    res.header("Access-Control-Allow-Origin", "*");
-    let encrp =req.body.data
-    jwt.verify(encrp, secret, (err, dec) => {
-        if (err) res.status(430).send(`接口请求参数解密失败,${err}`)
-        else{
-            req.body = dec
-            next()
-        }
-    })
+    if(req.body.ceshi) next();
+    else{
+        let encrp =req.body.data
+        jwt.verify(encrp, secret, (err, dec) => {
+            if (err) res.status(430).send(`接口请求参数解密失败,${err}`)
+            else{
+                req.body = {...dec , 'school_id':req.get("school_id") }
+                next()
+            }
+        })
+    }
+    
 })
 // 用户&管理员
 router.use('/user', function (req, res) { 
@@ -51,8 +56,7 @@ router.use('/user', function (req, res) {
     if(req.body.judge==6) user.updatePass(req,res)
 });
 // 学校
-router.use('/school', function (req, res) { 
-    
+router.use('/school', function (req, res) {
     if(req.body.judge==0) school.findAndCountAll(req, res)
     if(req.body.judge==1) school.create(req, res)
     if(req.body.judge==2) school.delete(req,res)
@@ -61,7 +65,6 @@ router.use('/school', function (req, res) {
 });
 // 认证信息
 router.use('/authen', function (req, res) { 
-    
     if(req.body.judge==0) authen.findAndCountAll(req, res)
     if(req.body.judge==1) authen.create(req, res)
     if(req.body.judge==2) authen.delete(req,res)
@@ -69,7 +72,6 @@ router.use('/authen', function (req, res) {
 });
 // 用户信息
 router.use('/info', function (req, res) { 
-    
     if(req.body.judge==0) info.findAndCountAll(req, res)
     if(req.body.judge==1) info.create(req, res)
     if(req.body.judge==2) info.delete(req,res)
@@ -77,7 +79,6 @@ router.use('/info', function (req, res) {
 });
 // 地址信息
 router.use('/location', function (req, res) { 
-    
     if(req.body.judge==0) location.findAndCountAll(req, res)
     if(req.body.judge==1) location.create(req, res)
     if(req.body.judge==2) location.delete(req,res)
@@ -85,23 +86,27 @@ router.use('/location', function (req, res) {
 });
 // 开卡信息
 router.use('/card', function (req, res) { 
-    
     if(req.body.judge==0) card.findAndCountAll(req, res)
     if(req.body.judge==1) card.create(req, res)
     if(req.body.judge==2) card.delete(req,res)
     if(req.body.judge==3) card.update(req,res)
 });
-// 快递信息
+// 快递代取
 router.use('/logistic', function (req, res) { 
-    
     if(req.body.judge==0) logistic.findAndCountAll(req, res)
     if(req.body.judge==1) logistic.create(req, res)
     if(req.body.judge==2) logistic.delete(req,res)
     if(req.body.judge==3) logistic.update(req,res)
 });
+// 快递代发
+router.use('/lsend', function (req, res) { 
+    if(req.body.judge==0) lsend.findAndCountAll(req, res)
+    if(req.body.judge==1) lsend.create(req, res)
+    if(req.body.judge==2) lsend.delete(req,res)
+    if(req.body.judge==3) lsend.update(req,res)
+});
 // 跑腿订单信息
 router.use('/order', function (req, res) { 
-    
     if(req.body.judge==0) order.findAndCountAll(req, res)
     if(req.body.judge==1) order.create(req, res)
     if(req.body.judge==2) order.delete(req,res)
@@ -144,7 +149,6 @@ router.use('/mjourney', function (req, res) {
 });
 // 旅游项目
 router.use('/jitem', function (req, res) { 
-    
     if(req.body.judge==0) jitem.findAndCountAll(req, res)
     if(req.body.judge==1) jitem.create(req, res)
     if(req.body.judge==2) jitem.delete(req,res)
@@ -152,7 +156,6 @@ router.use('/jitem', function (req, res) {
 });
 // 水果一级信息
 router.use('/fruit', function (req, res) { 
-    
     if(req.body.judge==0) fruit.findAndCountAll(req, res)
     if(req.body.judge==1) fruit.create(req, res)
     if(req.body.judge==2) fruit.delete(req,res)
@@ -167,7 +170,6 @@ router.use('/mfruit', function (req, res) {
 });
 // 水果项目
 router.use('/fitem', function (req, res) { 
-    
     if(req.body.judge==0) fitem.findAndCountAll(req, res)
     if(req.body.judge==1) fitem.create(req, res)
     if(req.body.judge==2) fitem.delete(req,res)
@@ -183,7 +185,6 @@ router.use('/cart', function (req, res) {
 });
 // 总订单信息
 router.use('/tran', function (req, res) { 
-    
     if(req.body.judge==0) tran.findAndCountAll(req, res)
     if(req.body.judge==1) tran.create(req, res)
     if(req.body.judge==2) tran.delete(req,res)
@@ -191,9 +192,15 @@ router.use('/tran', function (req, res) {
 });
 // 资金信息
 router.use('/stock', function (req, res) { 
-    
     if(req.body.judge==0) stock.findAndCountAll(req, res)
     if(req.body.judge==1) stock.create(req, res)
     if(req.body.judge==2) stock.delete(req,res)
     if(req.body.judge==3) stock.update(req,res)
+});
+// 提现
+router.use('/tixian', function (req, res) { 
+    if(req.body.judge==0) tixian.findAndCountAll(req, res)
+    if(req.body.judge==1) tixian.create(req, res)
+    if(req.body.judge==2) tixian.delete(req,res)
+    if(req.body.judge==3) tixian.update(req,res)
 });
