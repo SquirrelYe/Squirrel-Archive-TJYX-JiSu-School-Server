@@ -7,9 +7,10 @@ card.belongsTo(user, { foreignKey: 'user_id' });
 
 module.exports = {
     // 查询所有
-    findAndCountAll(req, res) {
+    findAndCountAllBySchool(req, res) {
         card.findAndCountAll({
             include: [{ model: user }],
+            where: { 'school': req.body.school_id },
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then(msg => { res.send(msg); })
@@ -28,14 +29,15 @@ module.exports = {
             include: [{ model: user }],
         }).then(msg => { res.send(msg); })
     },
-    // 模糊查询 location.name
-    findAndCountAllLikeByName(req, res) {
+    // 模糊查询 location.name school
+    findAndCountAllLikeByNameSchool(req, res) {
         card.findAndCountAll({            
             include: [{ model: user }], 
             where:{
                 'name': {
                     $like: `%${req.body.name}%`
-                }
+                },
+                'school': req.body.school_id
             } 
         }).then(msg => { res.send(msg); })
     }

@@ -34,13 +34,23 @@ module.exports = {
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
+    // 查询所有 by school 
+    findBySchoolId(req,res){
+        mjourney.findAndCountAll({
+            include:[{ model: jitem },{ model: journey }],
+            where:{ 'school_id': req.body.school_id },
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+        }).then( msg => { res.send(msg); })
+    },
     // 模糊查询 name
-    findAndCountAllLikeByName(req, res) {
+    findAndCountAllLikeByNameSchool(req, res) {
         mjourney.findAndCountAll({
             where:{
                 'title': {
                     $like: `%${req.body.title}%`
-                }
+                },
+                'school_id': req.body.school_id
             },
             include:[{ model: jitem },{ model: journey }],
         }).then(msg => { res.send(msg); })

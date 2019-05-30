@@ -11,7 +11,8 @@ let mjourney = conn.define(
         'id': { 'type': Sequelize.INTEGER(11), 'allowNull': true, 'primaryKey': true, 'autoIncrement': true },
         'journey_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'title': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
+        'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'school_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
     }
 );
 
@@ -28,7 +29,8 @@ module.exports = {
             'id':null,
             'journey_id':req.body.journey_id,
             'title':req.body.title,
-            'condition':req.body.condition
+            'condition':req.body.condition,
+            'school_id':req.body.school_id
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
@@ -45,7 +47,8 @@ module.exports = {
             {
                 'title':req.body.title,
                 'condition':req.body.condition,
-                'journey_id':req.body.journey_id
+                'journey_id':req.body.journey_id,
+                'school_id':req.body.school_id
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })

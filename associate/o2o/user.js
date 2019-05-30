@@ -23,9 +23,9 @@ module.exports = {
         }).then(msg => { res.send(msg); })
     },
     // 按用户类型查询
-    findAndCountAllByType(req, res) {
+    findAndCountAllByTypeSchool(req, res) {
         user.findAndCountAll({
-            where: { 'type': req.body.type },
+            where: { 'type': req.body.type,'school_id': req.body.school_id },
             include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
@@ -55,13 +55,13 @@ module.exports = {
         }).then(msg => { res.send(msg); })
     },
     // 模糊搜索 name
-    findAndCountAllByTypeLikeByName(req,res){
+    findAndCountAllByTypeLikeByNameSchool(req,res){
         user.findAndCountAll({
             where:{
                 'name':{
                     $like:`%${req.body.name}%`
                 },
-                'type':req.body.type
+                'type':req.body.type,'school_id': req.body.school_id
             },
             include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
         }).then(msg => { res.send(msg); })
@@ -71,10 +71,23 @@ module.exports = {
         user.findAndCountAll({
             where:{
                 'type':req.body.type,
-                'authen_id':{ $not: null }
+                'authen_id':{ $not: null },
+                'school_id': req.body.school_id
             },
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
+            include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
+        }).then(msg => { res.send(msg); })
+    },
+    // 模糊搜索 name
+    findAndCountAllXYDSByNameSchool(req,res){
+        user.findAndCountAll({
+            where:{
+                'name':{
+                    $like:`%${req.body.name}%`
+                },
+                'type':req.body.type,'school_id': req.body.school_id,'authen_id':{ $not: null },
+            },
             include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
         }).then(msg => { res.send(msg); })
     }

@@ -10,14 +10,14 @@ let logistic = conn.define(
     {
         'id': { 'type': Sequelize.INTEGER(11), 'allowNull': true, 'primaryKey': true, 'autoIncrement': true },
         'user_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'take': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'from': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'location_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'total': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'money': { 'type': Sequelize.DOUBLE(11), 'allowNull': true },
-        'time': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'log_from': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'log_to': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'key': { 'type': Sequelize.CHAR(255), 'allowNull': true }
+        'key': { 'type': Sequelize.CHAR(255), 'allowNull': true },
+        'school_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
     }
 );
 
@@ -33,14 +33,14 @@ module.exports = {
         logistic.create({
             'id':null,
             'user_id':req.body.user_id,
+            'take':req.body.take,
+            'from':req.body.from,
             'location_id':req.body.location_id,
             'condition':req.body.condition,
             'total':req.body.total,
             'money':req.body.money,
-            'time':req.body.time,
-            'log_from':req.body.log_from,
-            'log_to':req.body.log_to,
-            'key':req.body.key
+            'key':req.body.key,
+            'school_id':req.body.school_id
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
@@ -56,14 +56,14 @@ module.exports = {
         logistic.update(
             {
                 'user_id':req.body.user_id,
+                'take':req.body.take,
+                'from':req.body.from,
                 'location_id':req.body.location_id,
                 'condition':req.body.condition,
                 'total':req.body.total,
                 'money':req.body.money,
-                'time':req.body.time,
-                'log_from':req.body.log_from,
-                'log_to':req.body.log_to,
-                'key':req.body.key
+                'key':req.body.key,
+                'school_id':req.body.school_id
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })

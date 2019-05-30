@@ -31,13 +31,23 @@ module.exports = {
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
+    // 查询所有 by school 
+    findBySchoolId(req,res){
+        eitem.findAndCountAll({
+            include:[{ model:mexam}],
+            where:{ 'school_id': req.body.school_id },
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+        }).then( msg => { res.send(msg); })
+    },
     // 模糊查询 name
-    findAndCountAllLikeByName(req, res) {
+    findAndCountAllLikeByNameSchool(req, res) {
         eitem.findAndCountAll({
             where:{
                 'name': {
                     $like: `%${req.body.name}%`
-                }
+                },
+                'school_id': req.body.school_id
             },
             include:[{ model:mexam}]
         }).then(msg => { res.send(msg); })

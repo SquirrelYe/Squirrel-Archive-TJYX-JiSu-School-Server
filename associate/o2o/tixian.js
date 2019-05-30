@@ -44,8 +44,8 @@ module.exports = {
             limit: Number(req.body.limit),
         }).then(msg => { res.send(msg); })
     },
-    // 模糊查询 user name
-    findAndCountAllLikeByUserName(req, res) {
+    // 模糊查询 user name school
+    findAndCountAllLikeByUserNameSchool(req, res) {
         tixian.findAndCountAll({
             include: [
                 { model: user},
@@ -54,7 +54,8 @@ module.exports = {
                     where:{
                         'name': {
                             $like: `%${req.body.name}%`
-                        }
+                        },
+                        'school_id': req.body.school_id
                     } 
                 }, {model:stock}, {model:school} ],
             where: { 'school_id': req.body.school_id },

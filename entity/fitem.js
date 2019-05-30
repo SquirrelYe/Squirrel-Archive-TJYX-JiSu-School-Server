@@ -15,7 +15,8 @@ let fitem = conn.define(
         'price': { 'type': Sequelize.DOUBLE(10), 'allowNull': true },
         'detail': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'mfruit_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
+        'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'school_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
     }
 );
 
@@ -36,7 +37,8 @@ module.exports = {
             'price':req.body.price,
             'detail':req.body.detail,
             'mfruit_id':req.body.mfruit_id,
-            'condition':req.body.condition
+            'condition':req.body.condition,
+            'school_id':req.body.school_id
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
@@ -57,7 +59,8 @@ module.exports = {
                 'price':req.body.price,
                 'detail':req.body.detail,
                 'mfruit_id':req.body.mfruit_id,
-                'condition':req.body.condition
+                'condition':req.body.condition,
+                'school_id':req.body.school_id
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })

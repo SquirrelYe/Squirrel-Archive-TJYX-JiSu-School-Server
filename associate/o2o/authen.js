@@ -39,14 +39,15 @@ module.exports = {
             limit: Number(req.body.limit),
         }).then( msg => { res.send(msg); })
     },
-    // 模糊查询 name
-    findAndCountAllLikeByName(req, res) {
+    // 模糊查询 name school
+    findAndCountAllLikeByNameSchool(req, res) {
         authen.findAndCountAll({            
             include:[{ model:user}, {model:school}],
             where:{
                 'name': {
                     $like: `%${req.body.name}%`
-                }
+                },
+                'school_id':req.body.school_id 
             } 
         }).then(msg => { res.send(msg); })
     }

@@ -10,7 +10,8 @@ let exam = conn.define(
     {
         'id': { 'type': Sequelize.INTEGER(11), 'allowNull': true, 'primaryKey': true, 'autoIncrement': true },
         'title': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
+        'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'school_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
     }
 );
 
@@ -26,7 +27,8 @@ module.exports = {
         exam.create({
             'id':null,
             'title':req.body.title,
-            'condition':req.body.condition
+            'condition':req.body.condition,
+            'school_id':req.body.school_id
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
@@ -42,7 +44,8 @@ module.exports = {
         exam.update(
             {
                 'title':req.body.title,
-                'condition':req.body.condition
+                'condition':req.body.condition,
+                'school_id':req.body.school_id
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })

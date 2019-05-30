@@ -3,6 +3,10 @@ const conn = require('../orm/orm').connection();
 const jwt = require('jsonwebtoken')
 const secret = require('../utils/key/secret').token
 
+const info = require('./info').info;
+const authen = require('./authen').authen;
+const school = require('./school').school;
+
 // 模型层定义
 let user = conn.define(
     // 默认表名（一般这里写单数），生成时会自动转换成复数形式
@@ -26,6 +30,12 @@ let user = conn.define(
 );
 
 
+// 关联对象
+user.belongsTo(info, { foreignKey: 'info_id' });
+user.belongsTo(authen, { foreignKey: 'authen_id' });
+user.belongsTo(school, { foreignKey: 'school_id' });
+
+
 module.exports = {
     // 模型实体
     user,
@@ -45,7 +55,8 @@ module.exports = {
             'where':{
                 'name':req.body.name,
                 'pass':req.body.pass
-            }
+            },
+            include: [{ model: info }, { model: authen }, { model: school }],
         })
         .then( msg=>{ 
             if(msg){
