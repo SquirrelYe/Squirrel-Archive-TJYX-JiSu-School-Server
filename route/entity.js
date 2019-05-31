@@ -26,6 +26,7 @@ const stock = require('../entity/stock')
 const tran = require('../entity/transaction')
 const lsend = require('../entity/lsend')
 const tixian = require('../entity/tixian')
+const activity = require('../entity/activity')
 
 
 module.exports = router
@@ -203,4 +204,12 @@ router.use('/tixian', function (req, res) {
     if(req.body.judge==1) tixian.create(req, res)
     if(req.body.judge==2) tixian.delete(req,res)
     if(req.body.judge==3) tixian.update(req,res)
+});
+// 活动
+router.use('/activity', function (req, res) { 
+    if(req.body.judge==0) activity.findAndCountAllBySchool(req, res)
+    if(req.body.judge==1) activity.create(req, res)
+    if(req.body.judge==2) activity.delete(req,res)
+    if(req.body.judge==3) activity.update(req,res)
+    if(req.body.judge==4) activity.findAndCountAllLikeByTitleSchool(req,res)
 });
