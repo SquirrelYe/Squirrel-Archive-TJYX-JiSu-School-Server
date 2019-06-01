@@ -64,6 +64,7 @@ router.use('/school', function (req, res) {
     if(req.body.judge==2) school.delete(req,res)
     if(req.body.judge==3) school.update(req,res)
     if(req.body.judge==4) school.findAndCountAllLikeByName(req,res);
+    if(req.body.judge==5) school.findAndCountAllOnlyIdName(req,res);
 });
 // 认证信息
 router.use('/authen', function (req, res) { 

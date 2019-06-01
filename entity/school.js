@@ -62,5 +62,11 @@ module.exports = {
                 }
             },
         }).then(msg => { res.send(msg); })
+    },
+    // 获取学校列表
+    findAndCountAllOnlyIdName(req,res){
+        school.findAndCountAll({
+        attributes:['id','name','province']
+        }).then(msg => { res.send(msg); })
     }
 };
