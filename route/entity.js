@@ -56,6 +56,8 @@ router.use('/user', function (req, res) {
     if(req.body.judge==4) user.selectUsersByEmail(req,res)
     if(req.body.judge==5) user.login(req,res)
     if(req.body.judge==6) user.updatePass(req,res)
+    if(req.body.judge==7) user.cusCreate(req,res)
+    if(req.body.judge==8) user.cusLogin(req,res)
 });
 // 学校
 router.use('/school', function (req, res) {

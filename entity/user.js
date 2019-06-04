@@ -6,6 +6,7 @@ const secret = require('../utils/key/secret').token
 const info = require('./info').info;
 const authen = require('./authen').authen;
 const school = require('./school').school;
+const stock = require('./stock').stock;
 
 // 模型层定义
 let user = conn.define(
@@ -19,22 +20,22 @@ let user = conn.define(
         'sessionid': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'name': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'pass': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'type': { 'type': Sequelize.INTEGER(1), 'allowNull': true },
+        'type': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'mail': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'phone': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'info_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'authen_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'school_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
     }
 );
 
-
-// 关联对象
-user.belongsTo(info, { foreignKey: 'info_id' });
-user.belongsTo(authen, { foreignKey: 'authen_id' });
 user.belongsTo(school, { foreignKey: 'school_id' });
 
+stock.belongsTo(user, { foreignKey: 'user_id' })
+user.hasOne(stock)
+info.belongsTo(user, { foreignKey: 'user_id' })
+user.hasOne(info)
+authen.belongsTo(user, { foreignKey: 'user_id' })
+user.hasOne(authen)
 
 module.exports = {
     // 模型实体
@@ -56,7 +57,7 @@ module.exports = {
                 'name':req.body.name,
                 'pass':req.body.pass
             },
-            include: [{ model: info }, { model: authen }, { model: school }],
+            include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
         })
         .then( msg=>{ 
             if(msg){
@@ -68,7 +69,7 @@ module.exports = {
             else res.status(432).send("登录校验失败") 
          })
     },    
-    //注册用户
+    //注册管理员
     create(req,res){
         user.findOrCreate({
             where: {
@@ -84,8 +85,6 @@ module.exports = {
                 'mail':req.body.mail,
                 'phone':req.body.phone,
                 'condition':req.body.condition,
-                'info_id':req.body.info_id,
-                'authen_id':req.body.authen_id,
                 'school_id':req.body.school_id,
             }
         }).then( msg=>{ res.send(msg); })
@@ -118,11 +117,47 @@ module.exports = {
                 'mail':req.body.mail,
                 'phone':req.body.phone,
                 'condition':req.body.condition,
-                'info_id':req.body.info_id,
-                'authen_id':req.body.authen_id,
                 'school_id':req.body.school_id,
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
-    }
+    },
+    // 注册用户
+    cusCreate(req,res){
+        user.findOrCreate({
+            where: {
+                'phone':req.body.phone
+            },
+            defaults: { 
+                'openid':req.body.openid,
+                'sessionid':req.body.sessionid,
+                'name':req.body.name,
+                'pass':req.body.pass,
+                'type':0,
+                'mail':req.body.mail,
+                'phone':req.body.phone,
+                'condition':0,
+                'school_id':req.body.school_id,
+            }
+        }).then( msg=>{ res.send(msg); })
+    },
+    // 用户登录
+    cusLogin(req,res){
+        user.findOne({
+            'where':{
+                'phone':req.body.phone,
+                'pass':req.body.pass
+            },
+            include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
+        })
+        .then( msg=>{ 
+            if(msg){
+                let encrp = jwt.sign( msg.dataValues , secret ,{ expiresIn:'1h'})
+                let data = { ...msg.dataValues, token:encrp}
+                console.log('token--->',encrp)
+                res.send(data)
+            }
+            else res.status(432).send("登录校验失败") 
+         })
+    }, 
 };

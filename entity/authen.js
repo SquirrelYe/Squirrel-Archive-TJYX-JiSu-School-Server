@@ -15,7 +15,7 @@ let authen = conn.define(
         'school_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'xuehao': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'phone': { 'type': Sequelize.CHAR(255), 'allowNull': true },
-        'mail': { 'type': Sequelize.CHAR(255), 'allowNull': true },
+        'card': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'rz_icon': { 'type': Sequelize.CHAR(255), 'allowNull': true }
     }
 );
@@ -32,12 +32,12 @@ module.exports = {
         authen.create({
             'id':null,
             'user_id':req.body.user_id,
-            'condition':req.body.condition,
+            'condition':0,
             'name':req.body.name,
             'school_id':req.body.school_id,
             'xuehao':req.body.xuehao,
             'phone':req.body.phone,
-            'mail':req.body.mail,
+            'card':req.body.card,
             'rz_icon':req.body.rz_icon
         }).then( msg=>{ res.send(msg); })
     },
@@ -59,7 +59,7 @@ module.exports = {
                 'school_id':req.body.school_id,
                 'xuehao':req.body.xuehao,
                 'phone':req.body.phone,
-                'mail':req.body.mail,
+                'card':req.body.card,
                 'rz_icon':req.body.rz_icon
             },
             {   'where':{ 'id':req.body.id }

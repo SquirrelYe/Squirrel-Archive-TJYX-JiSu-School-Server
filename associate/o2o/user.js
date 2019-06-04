@@ -6,12 +6,14 @@ const authen = require('../../entity/authen').authen;
 const school = require('../../entity/school').school;
 const stock = require('../../entity/stock').stock;
 // 关联对象
-user.belongsTo(info, { foreignKey: 'info_id' });
-user.belongsTo(authen, { foreignKey: 'authen_id' });
 user.belongsTo(school, { foreignKey: 'school_id' });
 
 stock.belongsTo(user, { foreignKey: 'user_id' })
 user.hasOne(stock)
+info.belongsTo(user, { foreignKey: 'user_id' })
+user.hasOne(info)
+authen.belongsTo(user, { foreignKey: 'user_id' })
+user.hasOne(authen)
 
 module.exports = {
     // 查询所有
