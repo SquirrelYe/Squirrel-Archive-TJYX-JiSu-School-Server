@@ -36,7 +36,7 @@ router.use((req, res, next) => {
         jwt.verify(encrp, secret, (err, dec) => {
             if (err) res.status(430).send(`接口请求参数解密失败,${err}`)
             else {
-                req.body = {...dec , 'school_id':req.get("school_id") }
+                req.body = {...dec }  //  'school_id':req.get("school_id") 
                 next()
             }
         })
