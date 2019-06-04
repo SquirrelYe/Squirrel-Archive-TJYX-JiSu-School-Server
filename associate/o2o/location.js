@@ -23,7 +23,7 @@ module.exports = {
     },
     // 按userid查询
     findByUserId(req,res){
-        location.findOne({
+        location.findAndCountAll({
             where:{ 'user_id':req.body.user_id },
             include:[{ model:user}]
         }).then( msg => { res.send(msg); })

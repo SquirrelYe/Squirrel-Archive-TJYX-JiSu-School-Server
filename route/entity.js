@@ -216,4 +216,5 @@ router.use('/activity', function (req, res) {
     if(req.body.judge==2) activity.delete(req,res)
     if(req.body.judge==3) activity.update(req,res)
     if(req.body.judge==4) activity.findAndCountAllLikeByTitleSchool(req,res)
+    if(req.body.judge==5) activity.findAndCountAllBySchoolType(req, res)
 });

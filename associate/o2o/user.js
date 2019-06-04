@@ -73,12 +73,16 @@ module.exports = {
         user.findAndCountAll({
             where:{
                 'type':req.body.type,
-                'authen_id':{ $not: null },
                 'school_id': req.body.school_id
             },
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
-            include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
+            include: [{ model: info }, { 
+                model: authen,
+                where:{
+                    'id':{ $not:null }
+                }
+             }, { model: school }, { model: stock }],
         }).then(msg => { res.send(msg); })
     },
     // 模糊搜索 name
@@ -88,9 +92,14 @@ module.exports = {
                 'name':{
                     $like:`%${req.body.name}%`
                 },
-                'type':req.body.type,'school_id': req.body.school_id,'authen_id':{ $not: null },
+                'type':req.body.type,'school_id': req.body.school_id
             },
-            include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
+            include: [{ model: info },{ 
+                model: authen,
+                where:{
+                    'id':{ $not:null }
+                }
+             }, { model: school }, { model: stock }],
         }).then(msg => { res.send(msg); })
     }
 }

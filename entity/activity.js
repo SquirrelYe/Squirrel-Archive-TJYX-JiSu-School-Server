@@ -26,7 +26,8 @@ module.exports = {
         activity.findAndCountAll({
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
-            where:{ 'school_id':req.body.school_id }
+            where:{ 'school_id':req.body.school_id },
+            order:[['updated_at', 'DESC']]
         }).then( msg => { res.send(msg) })       
     },
     // 新建信息
@@ -73,5 +74,14 @@ module.exports = {
                 'school_id':req.body.school_id
             },
         }).then(msg => { res.send(msg); })
-    }
+    },
+    // 学校、类型查找
+    findAndCountAllBySchoolType(req,res){
+        activity.findAndCountAll({
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+            where:{ 'school_id':req.body.school_id, 'type':req.body.type },
+            order:[['updated_at', 'DESC']]
+        }).then( msg => { res.send(msg) })       
+    },
 };

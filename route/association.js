@@ -82,6 +82,7 @@ router.use('/logistic', function (req, res) {
     if (req.body.judge == 2) logistic.findByUserId(req, res);
     if (req.body.judge == 3) logistic.findAndCountAllLikeByName(req, res);
     if (req.body.judge == 4) logistic.findBySchoolId(req, res);
+    if (req.body.judge == 5) logistic.findBySchoolIdCondition(req, res);
 })
 router.use('/lsend', function (req, res) {
     if (req.body.judge == 0) lsend.findAndCountAll(req, res);

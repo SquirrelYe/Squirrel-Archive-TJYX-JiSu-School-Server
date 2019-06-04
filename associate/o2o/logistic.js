@@ -3,10 +3,14 @@ var co = require('co');
 const logistic = require('../../entity/logistic').logistic;
 const user = require('../../entity/user').user;
 const location = require('../../entity/location').location;
+const info = require('../../entity/info').info;
 // 关联对象
 logistic.belongsTo(user, { foreignKey: 'user_id',as: 'cus' });
 logistic.belongsTo(user, { foreignKey: 'take',as: 'tak' });
 logistic.belongsTo(location, { foreignKey: 'location_id' });
+
+info.belongsTo(user, { foreignKey: 'user_id' })
+user.hasOne(info)
 
 module.exports = {
     // 查询所有
@@ -51,9 +55,28 @@ module.exports = {
     findBySchoolId(req, res) {
         logistic.findAndCountAll({
             where: { 'school_id': req.body.school_id },
-            include: [{ model: user,as: 'cus' }, { model: user,as: 'tak' },{ model: location }],
+            include: [{ 
+                model: user,
+                as: 'cus' ,
+                include:[{ model: info }]
+            }, { model: user,as: 'tak' },{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
+            order:[['condition', 'ASC'],['updated_at', 'DESC']]
+        }).then(msg => { res.send(msg); })
+    },
+    // 按school condition查询
+    findBySchoolIdCondition(req, res) {
+        logistic.findAndCountAll({
+            where: { 'school_id': req.body.school_id, 'condition': req.body.condition  },
+            include: [{ 
+                model: user,
+                as: 'cus' ,
+                include:[{ model: info }]
+            }, { model: user,as: 'tak' },{ model: location }],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+            order:[['condition', 'ASC'],['updated_at', 'DESC']]
         }).then(msg => { res.send(msg); })
     },
 }
