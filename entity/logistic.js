@@ -36,7 +36,7 @@ module.exports = {
             'take':req.body.take,
             'from':req.body.from,
             'location_id':req.body.location_id,
-            'condition':req.body.condition,
+            'condition': 0,
             'total':req.body.total,
             'money':req.body.money,
             'key':req.body.key,

@@ -161,10 +161,12 @@ router.use('/fitem', function (req, res) {
 router.use('/cart', function (req, res) {
     if (req.body.judge == 0) cart.findAndCountAll(req, res);
     if (req.body.judge == 1) cart.findById(req, res);
-    if (req.body.judge == 2) cart.findByUserId(req, res);
+    if (req.body.judge == 2) cart.findTranByUserId(req, res);
     if (req.body.judge == 3) cart.findByExam(req, res);
     if (req.body.judge == 4) cart.findByJourney(req, res);
     if (req.body.judge == 5) cart.findByFruit(req, res);
+    if (req.body.judge == 6) cart.findByCondition(req, res);
+    if (req.body.judge == 7) cart.findCartByUserId(req, res);
 })
 router.use('/tran', function (req, res) {
     if (req.body.judge == 0) tran.findAndCountAll(req, res);

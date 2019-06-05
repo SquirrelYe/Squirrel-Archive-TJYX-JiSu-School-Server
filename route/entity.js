@@ -181,8 +181,7 @@ router.use('/fitem', function (req, res) {
     if(req.body.judge==3) fitem.update(req,res)
 });
 // 购物车信息
-router.use('/cart', function (req, res) { 
-    
+router.use('/cart', function (req, res) {
     if(req.body.judge==0) cart.findAndCountAll(req, res)
     if(req.body.judge==1) cart.create(req, res)
     if(req.body.judge==2) cart.delete(req,res)
