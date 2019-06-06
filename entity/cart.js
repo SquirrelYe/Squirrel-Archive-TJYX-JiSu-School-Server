@@ -21,6 +21,7 @@ let cart = conn.define(
         'fitem_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'location_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'other': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'judgec': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'callback': { 'type': Sequelize.CHAR(255), 'allowNull': true }
     }
@@ -49,6 +50,7 @@ module.exports = {
             'fitem_id':req.body.fitem_id,
             'condition':req.body.condition,
             'location_id':req.body.location_id,
+            'other':req.body.other,
             'judgec':req.body.judgec,
             'callback':req.body.callback
         }).then( msg=>{ res.send(msg); })
@@ -59,7 +61,7 @@ module.exports = {
             {
                 where:{ 'id':req.body.id }
             }
-        ).then( msg=>{ res.send(msg); })
+        ).then( msg=>{ res.send({'affectRows':msg}); })
     },
     //更新信息
     update(req,res){
@@ -77,6 +79,7 @@ module.exports = {
                 'fitem_id':req.body.fitem_id,
                 'condition':req.body.condition,
                 'location_id':req.body.location_id,
+                'other':req.body.other,
                 'judgec':req.body.judgec,
                 'callback':req.body.callback
             },
