@@ -19,12 +19,13 @@ cart.belongsTo( jitem, { foreignKey: 'jitem_id'});
 cart.belongsTo( fitem, { foreignKey: 'fitem_id' });
 cart.belongsTo( location, { foreignKey: 'location_id' });
 logistic.belongsTo(user, { foreignKey: 'take' });
+lsend.belongsTo(user, { foreignKey: 'take' });
 
 module.exports = {
     // 查询所有
     findAndCountAll(req,res){
         cart.findAndCountAll({
-            include: [{ model: user },{ model: card},{ model: lsend},{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
+            include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]
@@ -34,14 +35,14 @@ module.exports = {
     findById(req,res){
         cart.findOne({
             where:{ 'id':req.body.id },
-            include: [{ model: user },{ model: card},{ model: lsend},{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
+            include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
         }).then( msg => { res.send(msg); })
     },
     // 按userid查询 订单信息
     findTranByUserId(req,res){
         cart.findAndCountAll({
             where:{ 'user_id':req.body.user_id, 'condition':{ $notIn:[0]} },// 0.仅显示订单信息，不包含 0（购物车）
-            include: [{ model: user },{ model: card},{ model: lsend},{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
+            include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]
@@ -51,7 +52,7 @@ module.exports = {
     findByExam(req,res){
         cart.findAndCountAll({
             where:{ 'eitem_id':req.body.eitem_id },
-            include: [{ model: user },{ model: card},{ model: lsend},{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
+            include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]
@@ -61,7 +62,7 @@ module.exports = {
     findByJourney(req,res){
         cart.findAndCountAll({
             where:{ 'jitem_id':req.body.jitem_id },
-            include: [{ model: user },{ model: card},{ model: lsend},{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
+            include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]
@@ -71,7 +72,7 @@ module.exports = {
     findByFruit(req,res){
         cart.findAndCountAll({
             where:{ 'fitem_id':req.body.fitem_id },
-            include: [{ model: user },{ model: card},{ model: lsend},{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
+            include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]
@@ -86,7 +87,7 @@ module.exports = {
                 'user_id':req.body.user_id,
                 'condition':{ $notIn:[0]}   // 过滤 0 购物车
             },
-            include: [{ model: user },{ model: card},{ model: lsend},{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
+            include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]
@@ -96,7 +97,7 @@ module.exports = {
     findCartByUserId(req,res){
         cart.findAndCountAll({
             where:{ 'user_id':req.body.user_id, 'condition':{ $in:[0]} },// 0.仅显示购物车信息
-            include: [{ model: user },{ model: card},{ model: lsend},{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
+            include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]
