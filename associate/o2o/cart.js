@@ -103,4 +103,34 @@ module.exports = {
             order:[['updated_at', 'DESC']]
         }).then( msg => { res.send(msg); })
     },
+    // 查询考试评价
+    findExamCallBack(req,res){
+        cart.findAndCountAll({
+            where:{ 'eitem_id':req.body.eitem_id, 'callback':{ $ne: null } },
+            include: [{ model: user },{ model: eitem},{ model: location }],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+            order:[['updated_at', 'DESC']]
+        }).then( msg => { res.send(msg); })
+    },
+    // 查询旅游评价
+    findJourneyCallBack(req,res){
+        cart.findAndCountAll({
+            where:{ 'jitem_id':req.body.jitem_id, 'callback':{ $ne: null } },
+            include: [{ model: user },{ model: jitem},{ model: location }],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+            order:[['updated_at', 'DESC']]
+        }).then( msg => { res.send(msg); })
+    },
+    // 查询水果评价
+    findFruitCallBack(req,res){
+        cart.findAndCountAll({
+            where:{ 'fitem_id':req.body.fitem_id, 'callback':{ $ne: null } },
+            include: [{ model: user },{ model: fitem},{ model: location }],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+            order:[['updated_at', 'DESC']]
+        }).then( msg => { res.send(msg); })
+    },
 }

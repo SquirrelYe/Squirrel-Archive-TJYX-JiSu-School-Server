@@ -25,6 +25,7 @@ const stock = require('../associate/o2o/stock')
 const tran = require('../associate/o2o/transaction')
 const lsend = require('../associate/o2o/lsend')
 const tixian = require('../associate/o2o/tixian')
+const index = require('../associate/o2o/index')
 
 
 module.exports = router
@@ -167,6 +168,9 @@ router.use('/cart', function (req, res) {
     if (req.body.judge == 5) cart.findByFruit(req, res);
     if (req.body.judge == 6) cart.findByCondition(req, res);
     if (req.body.judge == 7) cart.findCartByUserId(req, res);
+    if (req.body.judge == 8) cart.findExamCallBack(req, res);
+    if (req.body.judge == 9) cart.findJourneyCallBack(req, res);
+    if (req.body.judge == 10) cart.findFruitCallBack(req, res);
 })
 router.use('/tran', function (req, res) {
     if (req.body.judge == 0) tran.findAndCountAll(req, res);
@@ -187,4 +191,8 @@ router.use('/tixian', function (req, res) {
     if (req.body.judge == 2) tixian.findByUserId(req, res);
     if (req.body.judge == 3) tixian.findBySchoolId(req, res);
     if (req.body.judge == 4) tixian.findAndCountAllLikeByUserNameSchool(req, res);
+})
+router.use('/index', function (req, res) {
+    if (req.body.judge == 0) index.findAndCountAllBySchool(req, res);
+    if (req.body.judge == 1) index.findById(req, res);
 })

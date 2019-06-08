@@ -27,6 +27,7 @@ const tran = require('../entity/transaction')
 const lsend = require('../entity/lsend')
 const tixian = require('../entity/tixian')
 const activity = require('../entity/activity')
+const index = require('../entity/index')
 
 
 module.exports = router
@@ -216,4 +217,11 @@ router.use('/activity', function (req, res) {
     if(req.body.judge==3) activity.update(req,res)
     if(req.body.judge==4) activity.findAndCountAllLikeByTitleSchool(req,res)
     if(req.body.judge==5) activity.findAndCountAllBySchoolType(req, res)
+});
+// 首页
+router.use('/index', function (req, res) { 
+    if(req.body.judge==0) index.findAndCountAll(req, res)
+    if(req.body.judge==1) index.create(req, res)
+    if(req.body.judge==2) index.delete(req,res)
+    if(req.body.judge==3) index.update(req,res)
 });
