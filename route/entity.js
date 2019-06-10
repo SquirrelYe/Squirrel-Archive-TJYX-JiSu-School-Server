@@ -28,6 +28,9 @@ const lsend = require('../entity/lsend')
 const tixian = require('../entity/tixian')
 const activity = require('../entity/activity')
 const index = require('../entity/index')
+const ticket = require('../entity/ticket')
+const user_ticket = require('../entity/user_tickets')
+const favorite = require('../entity/favorite')
 
 
 module.exports = router
@@ -224,4 +227,25 @@ router.use('/index', function (req, res) {
     if(req.body.judge==1) index.create(req, res)
     if(req.body.judge==2) index.delete(req,res)
     if(req.body.judge==3) index.update(req,res)
+});
+// 优惠券
+router.use('/ticket', function (req, res) { 
+    if(req.body.judge==0) ticket.findAndCountAll(req, res)
+    if(req.body.judge==1) ticket.create(req, res)
+    if(req.body.judge==2) ticket.delete(req,res)
+    if(req.body.judge==3) ticket.update(req,res)
+});
+// 用户优惠券
+router.use('/user_ticket', function (req, res) { 
+    if(req.body.judge==0) user_ticket.findAndCountAll(req, res)
+    if(req.body.judge==1) user_ticket.create(req, res)
+    if(req.body.judge==2) user_ticket.delete(req,res)
+    if(req.body.judge==3) user_ticket.update(req,res)
+});
+// 用户收藏
+router.use('/favorite', function (req, res) { 
+    if(req.body.judge==0) favorite.findAndCountAll(req, res)
+    if(req.body.judge==1) favorite.create(req, res)
+    if(req.body.judge==2) favorite.delete(req,res)
+    if(req.body.judge==3) favorite.update(req,res)
 });

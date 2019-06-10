@@ -2,7 +2,6 @@ const mysql = require('mysql');
 const Sequelize=require('sequelize')
 const log=require('../log/log')
 
-
 module.exports = {
     //sequelize ORM对象关系映射 
     connection:function(req,res){
@@ -10,6 +9,7 @@ module.exports = {
             'TJYX_JiSu_School', // 数据库名
             'root',   // 用户名
             'yexuan0628',   // 用户密码
+            // 'yexuan@0628',  //服务器数据库
             {
                 'dialect': 'mysql',  // 数据库使用mysql
                 'host': '127.0.0.1', // 数据库服务器ip

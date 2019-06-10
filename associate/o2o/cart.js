@@ -2,6 +2,7 @@ var co = require('co');
 // 导入模型
 const cart = require('../../entity/cart').cart;
 const user = require('../../entity/user').user;
+const info = require('../../entity/info').info;
 const card = require('../../entity/card').card;
 const lsend = require('../../entity/lsend').lsend;
 const logistic = require('../../entity/logistic').logistic;
@@ -20,6 +21,8 @@ cart.belongsTo( fitem, { foreignKey: 'fitem_id' });
 cart.belongsTo( location, { foreignKey: 'location_id' });
 logistic.belongsTo(user, { foreignKey: 'take' });
 lsend.belongsTo(user, { foreignKey: 'take' });
+info.belongsTo(user, { foreignKey: 'user_id' })
+user.hasOne(info)
 
 module.exports = {
     // 查询所有
@@ -107,7 +110,7 @@ module.exports = {
     findExamCallBack(req,res){
         cart.findAndCountAll({
             where:{ 'eitem_id':req.body.eitem_id, 'callback':{ $ne: null } },
-            include: [{ model: user },{ model: eitem},{ model: location }],
+            include: [{ model: user,include:[{ model: info}] },{ model: eitem},{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]
@@ -117,7 +120,7 @@ module.exports = {
     findJourneyCallBack(req,res){
         cart.findAndCountAll({
             where:{ 'jitem_id':req.body.jitem_id, 'callback':{ $ne: null } },
-            include: [{ model: user },{ model: jitem},{ model: location }],
+            include: [{ model: user,include:[{ model: info}] },{ model: jitem},{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]
@@ -127,7 +130,7 @@ module.exports = {
     findFruitCallBack(req,res){
         cart.findAndCountAll({
             where:{ 'fitem_id':req.body.fitem_id, 'callback':{ $ne: null } },
-            include: [{ model: user },{ model: fitem},{ model: location }],
+            include: [{ model: user,include:[{ model: info}] },{ model: fitem},{ model: location }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
             order:[['updated_at', 'DESC']]

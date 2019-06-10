@@ -18,7 +18,7 @@ const fitem = require('../associate/o2o/fitem')
 const journey = require('../associate/o2o/journey')
 const mjourney = require('../associate/o2o/mjourney')
 const jitem = require('../associate/o2o/jitem')
-const location = require('../associate/o2o/location')
+const location = require('../associate/o2o/location') 
 const logistic = require('../associate/o2o/logistic')
 const order = require('../associate/o2o/order')
 const stock = require('../associate/o2o/stock')
@@ -26,6 +26,9 @@ const tran = require('../associate/o2o/transaction')
 const lsend = require('../associate/o2o/lsend')
 const tixian = require('../associate/o2o/tixian')
 const index = require('../associate/o2o/index')
+const user_ticket = require('../associate/o2m/user_ticket')
+const ticket = require('../associate/o2o/ticket')
+const favorite = require('../associate/o2o/favorite')
 
 
 module.exports = router
@@ -195,4 +198,17 @@ router.use('/tixian', function (req, res) {
 router.use('/index', function (req, res) {
     if (req.body.judge == 0) index.findAndCountAllBySchool(req, res);
     if (req.body.judge == 1) index.findById(req, res);
+})
+router.use('/user_ticket', function (req, res) {
+    if (req.body.judge == 0) user_ticket.findAndCountAll(req, res);
+    if (req.body.judge == 1) user_ticket.findAndCountAllByUser(req, res);
+    if (req.body.judge == 1) user_ticket.findAndCountAllByTicket(req, res);
+})
+router.use('/ticket', function (req, res) {
+    if (req.body.judge == 0) ticket.findAndCountAll(req, res);
+    if (req.body.judge == 1) ticket.findOneById(req, res);
+    if (req.body.judge == 1) ticket.findAndCountAllBySchool(req, res);
+})
+router.use('/favorite', function (req, res) {
+    if (req.body.judge == 0) favorite.findAndCountAllByUser(req, res);
 })
