@@ -23,7 +23,8 @@ let cart = conn.define(
         'location_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'other': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'judgec': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'callback': { 'type': Sequelize.CHAR(255), 'allowNull': true }
+        'callback': { 'type': Sequelize.CHAR(255), 'allowNull': true },
+        'ticket_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
     }
 );
 
@@ -52,7 +53,8 @@ module.exports = {
             'location_id':req.body.location_id,
             'other':req.body.other,
             'judgec':req.body.judgec,
-            'callback':req.body.callback
+            'callback':req.body.callback,
+            'ticket_id':req.body.ticket_id
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
@@ -81,7 +83,8 @@ module.exports = {
                 'location_id':req.body.location_id,
                 'other':req.body.other,
                 'judgec':req.body.judgec,
-                'callback':req.body.callback
+                'callback':req.body.callback,
+                'ticket_id':req.body.ticket_id
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })

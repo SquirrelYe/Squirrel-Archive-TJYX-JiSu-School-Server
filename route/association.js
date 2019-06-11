@@ -202,13 +202,16 @@ router.use('/index', function (req, res) {
 router.use('/user_ticket', function (req, res) {
     if (req.body.judge == 0) user_ticket.findAndCountAll(req, res);
     if (req.body.judge == 1) user_ticket.findAndCountAllByUser(req, res);
-    if (req.body.judge == 1) user_ticket.findAndCountAllByTicket(req, res);
+    if (req.body.judge == 2) user_ticket.findAndCountAllByTicket(req, res);
 })
 router.use('/ticket', function (req, res) {
     if (req.body.judge == 0) ticket.findAndCountAll(req, res);
     if (req.body.judge == 1) ticket.findOneById(req, res);
-    if (req.body.judge == 1) ticket.findAndCountAllBySchool(req, res);
+    if (req.body.judge == 2) ticket.findAndCountAllBySchool(req, res);
 })
 router.use('/favorite', function (req, res) {
     if (req.body.judge == 0) favorite.findAndCountAllByUser(req, res);
+    if (req.body.judge == 1) favorite.CountExamByUser(req, res);
+    if (req.body.judge == 2) favorite.CountJourneyByUser(req, res);
+    if (req.body.judge == 3) favorite.CountFruitByUser(req, res);
 })

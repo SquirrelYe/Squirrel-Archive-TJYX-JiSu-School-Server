@@ -11,6 +11,7 @@ let stock = conn.define(
         'id': { 'type': Sequelize.INTEGER(11), 'allowNull': true, 'primaryKey': true, 'autoIncrement': true },
         'user_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'money': { 'type': Sequelize.DOUBLE(11), 'allowNull': true },
+        'score': { 'type': Sequelize.DOUBLE(11), 'allowNull': true },
         'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
     }
 );
@@ -28,6 +29,7 @@ module.exports = {
             'id':null,
             'user_id':req.body.user_id,
             'money':req.body.money,
+            'score':req.body.score,
             'condition':req.body.condition
         }).then( msg=>{ res.send(msg); })
     },
@@ -45,6 +47,7 @@ module.exports = {
             {
                 'user_id':req.body.user_id,
                 'money':req.body.money,
+                'score':req.body.score,
                 'condition':req.body.condition
             },
             {   'where':{ 'id':req.body.id }
