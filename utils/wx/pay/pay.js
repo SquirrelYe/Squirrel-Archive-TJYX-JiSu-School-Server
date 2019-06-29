@@ -1,26 +1,16 @@
 var xmlreader = require("xmlreader");
 var fs = require("fs");
+var crypto = require('crypto'); 
  
- 
-var wxpay = {
- 
+var wxpay = { 
     //把金额转为分
-    getmoney: function (money) {
-        return parseFloat(money) * 100;
-    },
- 
+    getmoney:  (money)=> { return parseFloat(money) * 100; },
     // 随机字符串产生函数  
-    createNonceStr: function () {
-        return Math.random().toString(36).substr(2, 15);
-    },
- 
+    createNonceStr:  ()=> { return Math.random().toString(36).substr(2, 15); },
     // 时间戳产生函数  
-    createTimeStamp: function () {
-        return parseInt(new Date().getTime() / 1000) + '';
-    },
- 
+    createTimeStamp:  ()=> { return parseInt(new Date().getTime() / 1000) + ''; },
     //签名加密算法
-    paysignjsapi: function (appid, body, mch_id, nonce_str, notify_url, out_trade_no, spbill_create_ip, total_fee, trade_type, mchkey) {
+    paysignjsapi:  (appid, body, mch_id, nonce_str, notify_url, out_trade_no, spbill_create_ip, total_fee, trade_type, mchkey)=> {
         var ret = {
             appid: appid,
             mch_id: mch_id,
@@ -32,12 +22,11 @@ var wxpay = {
             total_fee: total_fee,
             trade_type: trade_type
         };
-        console.log('ret==', ret);
-        var string = raw(ret);
-        var key = mchkey;
+        console.log('传送的签名参数-->', ret);
+        let string = raw(ret);
+        let key = mchkey;
         string = string + '&key=' + key;
-        console.log('string=', string);
-        var crypto = require('crypto');
+        console.log('生成签名数据-->', string);
         return crypto.createHash('md5').update(string, 'utf8').digest('hex').toUpperCase();
     },
     //签名加密算法,第二次的签名

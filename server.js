@@ -4,11 +4,12 @@ const multer = require('multer')
 const jwt = require('jsonwebtoken')
 // 工具
 const log = require('./log/log')
-const file = require('./utils/upload')
+const file = require('./utils/file/upload')
 // 路由
 const entity = require('./route/entity')
 const association = require('./route/association')
 const weixin = require('./route/weixin')
+const msg = require('./route/msg')
 
 var server = express();
 
@@ -50,6 +51,7 @@ server.use((req, res, next) => {
 server.use('/ent', entity);
 server.use('/ass', association);
 server.use('/wx', weixin);
+server.use('/msg', msg);
 
 server.use('/upload', (req, res) => {
     file.upload(req, res);

@@ -1,5 +1,5 @@
 module.exports={
-    getTime:function(){
+    getTime:()=>{
         function toDou(n){              
             return n<10?'0'+n:''+n;
         }

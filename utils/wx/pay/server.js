@@ -37,7 +37,7 @@ app.get('/',(req,res)=>{
  
     let sign = wxpay.paysignjsapi(appid,body,mch_id,nonce_str,notify_url,out_trade_no,spbill_create_ip,total_fee,trade_type,mchkey);
  
-    console.log('sign==',sign);
+    console.log('生成签名-->',sign);
  
     //组装xml数据
     var formData  = "<xml>";

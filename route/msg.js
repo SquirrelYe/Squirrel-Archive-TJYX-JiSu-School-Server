@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const secret = require('../utils/key/secret').interface  // token 密钥
 
 // -------------实体导入-------------
-const wx = require('../utils/wx/wx_api')
+const msg = require('../utils/msg/msg')
 
 module.exports = router
 
@@ -23,8 +23,6 @@ router.use((req,res,next)=>{
     }    
 })
 // 微信相关接口
-router.use('/wx', function (req, res) { 
-    if(req.body.judge==0) wx.selectOpenidUnionid(req,res)
-    if(req.body.judge==1) wx.selectAccessToken(req,res)
-    if(req.body.judge==2) wx.sendTemplateMsg(req,res)
+router.use('/msg', function (req, res) { 
+    if(req.body.judge==0) msg.register(req,res)
 });

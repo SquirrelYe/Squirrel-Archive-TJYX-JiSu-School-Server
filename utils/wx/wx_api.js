@@ -18,9 +18,7 @@ module.exports={
     //查询用户 access_token
     selectAccessToken(req,res){         
         var appid=req.body.appid;     
-        var secret=req.body.secret;     
-        var grant_type=req.body.grant_type;     
-        var js_code=req.body.js_code;    
+        var secret=req.body.secret;  
         // 参考链接：https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET
         var url=`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appid}&secret=${secret}`;
         request(url,function(error,response,body){
