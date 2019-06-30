@@ -27,4 +27,5 @@ router.use('/wx', function (req, res) {
     if(req.body.judge==0) wx.selectOpenidUnionid(req,res)
     if(req.body.judge==1) wx.selectAccessToken(req,res)
     if(req.body.judge==2) wx.sendTemplateMsg(req,res)
+    if(req.body.judge==3) wx.paysign(req,res)
 });

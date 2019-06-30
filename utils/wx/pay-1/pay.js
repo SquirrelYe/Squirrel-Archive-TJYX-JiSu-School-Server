@@ -1,5 +1,4 @@
 var xmlreader = require("xmlreader");
-var fs = require("fs");
 var crypto = require('crypto'); 
  
 var wxpay = { 
@@ -48,11 +47,6 @@ var wxpay = {
         return crypto.createHash('md5').update(string, 'utf8').digest('hex').toUpperCase();
     },
     getXMLNodeValue: function (xml) {
-        // var tmp = xml.split("<"+node_name+">");
-        // console.log('tmp',tmp);
-        // var _tmp = tmp[1].split("</"+node_name+">");
-        // console.log('_tmp',_tmp);
-        // return _tmp[0];
         xmlreader.read(xml, function (errors, response) {
             if (null !== errors) {
                 console.log(errors)
