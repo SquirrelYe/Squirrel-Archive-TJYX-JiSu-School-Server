@@ -22,12 +22,12 @@ exports.randomCode = randomCode;
 /*
 向指定号码发送指定验证码
  */
-function sendCode(phone, code, callback) {
+function sendCode( body, callback) {
     //填写自己的信息
     var ACCOUNT_SID = '8aaf07086b211c22016b2a9c9e64062f';
-    var AUTH_TOKEN = '';
+    var AUTH_TOKEN = '07962eb598f44c40ae8bb206652352b9';
     var Rest_URL = 'https://app.cloopen.com:8883';
-    var AppID = '8aaf07086b211c22016b2a9c9ec20635';
+    // var AppID = '8aaf07086b211c22016b2a9c9ec20635';
     //1. 准备请求url
     /*
      1.使用MD5加密（账户Id + 账户授权令牌 + 时间戳）。其中账户Id和账户授权令牌根据url的验证级别对应主账户。
@@ -36,16 +36,12 @@ function sendCode(phone, code, callback) {
      */
     var sigParameter = '';
     var time = moment().format('YYYYMMDDHHmmss');
-    sigParameter = md5(ACCOUNT_SID + AUTH_TOKEN + time);
+    sigParameter = md5(ACCOUNT_SID + AUTH_TOKEN + time).toUpperCase();
     var url = Rest_URL + '/2013-12-26/Accounts/' + ACCOUNT_SID + '/SMS/TemplateSMS?sig=' + sigParameter;
 
     //2. 准备请求体
-    var body = {
-        to: phone,
-        appId: AppID,
-        templateId: '1',
-        "datas": [code, "1"]
-    }
+    body
+    console.log('body--->',body)
     //body = JSON.stringify(body);
 
     //3. 准备请求头
@@ -63,6 +59,7 @@ function sendCode(phone, code, callback) {
         'Authorization': authorization
     }
 
+    // console.log(url,headers,body)
     //4. 发送请求, 并得到返回的结果, 调用callback
     request({
         method: 'POST',
