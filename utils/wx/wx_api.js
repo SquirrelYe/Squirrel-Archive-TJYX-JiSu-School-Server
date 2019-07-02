@@ -87,7 +87,9 @@ module.exports = {
             xmlParser.parseString(wxResponse.data, (err, success) => {
                 if (err) {
                     log('parser xml error ', err)
+                    res.sendStatus(501)
                 } else {
+                    console.log('success--->',success)
                     if (success.xml.return_code[0] === 'SUCCESS') {
                         const prepayId = success.xml.prepay_id[0]
                         const payParamsObj = getPayParams(prepayId, tradeId)

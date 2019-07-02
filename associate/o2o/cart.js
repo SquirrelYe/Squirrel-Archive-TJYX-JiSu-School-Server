@@ -47,7 +47,7 @@ module.exports = {
     // 按userid查询 订单信息
     findTranByUserId(req,res){
         cart.findAndCountAll({
-            where:{ 'user_id':req.body.user_id, 'condition':{ $notIn:[0]} },// 0.仅显示订单信息，不包含 0（购物车）
+            where:{ 'user_id':req.body.user_id, 'type':{ $notIn:[-4]} , 'condition':{ $notIn:[0]} },// 0.仅显示订单信息，不包含 0（购物车）
             include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location },{ model: ticket }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
@@ -102,7 +102,7 @@ module.exports = {
     // 按userid查询 购物车信息
     findCartByUserId(req,res){
         cart.findAndCountAll({
-            where:{ 'user_id':req.body.user_id, 'condition':{ $in:[0]} },// 0.仅显示购物车信息
+            where:{ 'user_id':req.body.user_id, 'type':{ $notIn:[-4]} , 'condition':{ $in:[0]} },// 0.仅显示购物车信息
             include: [{ model: user },{ model: card},{ model: lsend,include:[{ model: user}] },{  model: logistic,include:[{ model: user}] },{ model: eitem},{ model: jitem},{ model: fitem },{ model: location },{ model: ticket }],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
