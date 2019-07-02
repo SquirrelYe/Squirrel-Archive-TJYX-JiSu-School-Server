@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const xmlparser = require('express-xml-bodyparser')
 const multer = require('multer')
 const jwt = require('jsonwebtoken')
 // 工具
@@ -25,7 +26,7 @@ const secret = require('./utils/key/secret').token  // token 密钥
 server.use((req, res, next) => {
     // 允许所有请求
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,Authorization");
+    res.header("Access-Control-Allow-Headers", "Origin", "X-Requested-With", "Content-Type", "Accept","Authorization");
     // 测试
     if(req.body.ceshi) next();
     else if(req.url == '/ent/user' || req.url =='/upload') next();
@@ -52,10 +53,18 @@ server.use('/ent', entity);
 server.use('/ass', association);
 server.use('/wx', weixin);
 server.use('/msg', msg);
-
-server.use('/upload', (req, res) => {
-    file.upload(req, res);
+server.use('/notify',xmlparser({ trim:false, explicitArray:false }), (req, res) => { 
+    // 微信支付成功后的回调地址，存储回调信息s
+    console.log(req.body)
+    res.send(`
+        <xml>
+            <return_code><![CDATA[SUCCESS]]></return_code>
+            <return_msg><![CDATA[OK]]></return_msg>
+        </xml>
+    `)
 })
+
+server.use('/upload', (req, res) => { file.upload(req, res); })
 
 // 监听端口
 server.listen(11130);

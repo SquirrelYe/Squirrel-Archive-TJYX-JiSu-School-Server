@@ -10,7 +10,7 @@ module.exports={
         let body = {
             to: phone,
             appId: AppID,
-            templateId: '443792',
+            templateId: '443796',
             datas: [code, "5 Minutes"]
         }
         tool.sendCode( body,  (msg, error, response, body)=> {

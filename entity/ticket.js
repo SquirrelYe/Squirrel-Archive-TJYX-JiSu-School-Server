@@ -62,5 +62,15 @@ module.exports = {
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
+    },
+    // 查询新用户优惠券 by school_id condition type
+    findOneBySchoolConditionType(req,res){
+        ticket.findOne({
+            'where':{ 
+                'school_id':req.body.school_id,
+                'condition':req.body.condition,
+                'type':req.body.type
+            }
+        }).then( msg=>{ res.send(msg); })
     }
 };

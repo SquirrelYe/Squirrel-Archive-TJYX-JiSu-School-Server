@@ -234,6 +234,7 @@ router.use('/ticket', function (req, res) {
     if(req.body.judge==1) ticket.create(req, res)
     if(req.body.judge==2) ticket.delete(req,res)
     if(req.body.judge==3) ticket.update(req,res)
+    if(req.body.judge==4) ticket.findOneBySchoolConditionType(req,res)
 });
 // 用户优惠券
 router.use('/user_ticket', function (req, res) { 
@@ -241,6 +242,7 @@ router.use('/user_ticket', function (req, res) {
     if(req.body.judge==1) user_ticket.create(req, res)
     if(req.body.judge==2) user_ticket.delete(req,res)
     if(req.body.judge==3) user_ticket.update(req,res)
+    if(req.body.judge==4) user_ticket.newerGetTicket(req,res)
 });
 // 用户收藏
 router.use('/favorite', function (req, res) { 

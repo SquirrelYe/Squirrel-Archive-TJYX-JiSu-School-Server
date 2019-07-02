@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
 const conn = require('../orm/orm').connection();
 
+const newerTicketNumber = 3
+
 // 模型层定义
 let user_ticket = conn.define(
     // 默认表名（一般这里写单数），生成时会自动转换成复数形式
@@ -37,7 +39,7 @@ module.exports = {
             { where:{ 'id':req.body.id } }
         ).then( msg=>{ res.send({'affectRows':msg}); })
     },
-    //更新信息
+    // 更新信息
     update(req,res){
         user_ticket.update(
             {
@@ -47,5 +49,15 @@ module.exports = {
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
-    }
+    },    
+    // 新用户获取优惠券
+    ticket(uid,tid,c){ return user_ticket.create({ 'id':null, 'user_id':uid, 'ticket_id':tid, 'condition':c }) },
+    async newerGetTicket(req,res){
+        for (let i = 0; i < newerTicketNumber; i++) {
+            await this.ticket(req.body.user_id,req.body.ticket_id,req.body.condition).catch(err=>{ res.send({'code': -1}); return; })    
+        }
+        res.send({'code': 1})
+    },
+
+
 };

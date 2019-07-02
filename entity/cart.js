@@ -25,6 +25,8 @@ let cart = conn.define(
         'judgec': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'callback': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'ticket_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
+        'timestamp': { 'type': Sequelize.CHAR(50), 'allowNull': true },
+        'trade_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
     }
 );
 
@@ -54,7 +56,9 @@ module.exports = {
             'other':req.body.other,
             'judgec':req.body.judgec,
             'callback':req.body.callback,
-            'ticket_id':req.body.ticket_id
+            'ticket_id':req.body.ticket_id,
+            'timestamp':req.body.timestamp,
+            'trade_id':req.body.trade_id
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
@@ -84,7 +88,9 @@ module.exports = {
                 'other':req.body.other,
                 'judgec':req.body.judgec,
                 'callback':req.body.callback,
-                'ticket_id':req.body.ticket_id
+                'ticket_id':req.body.ticket_id,
+                'timestamp':req.body.timestamp,
+                'trade_id':req.body.trade_id
             },
             {   'where':{ 'id':req.body.id }
         }).then( msg=>{ res.send(msg); })
