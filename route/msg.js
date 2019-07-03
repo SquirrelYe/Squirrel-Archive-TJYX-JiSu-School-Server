@@ -25,4 +25,8 @@ router.use((req,res,next)=>{
 // 微信相关接口
 router.use('/msg', function (req, res) { 
     if(req.body.judge==0) msg.register(req,res)
+    if(req.body.judge==1) msg.pass(req,res)
+    if(req.body.judge==2) msg.normal(req,res)
+    if(req.body.judge==3) msg.toorder(req,res)
+    if(req.body.judge==4) msg.cancerorder(req,res)
 });

@@ -23,22 +23,5 @@ module.exports = {
             }
         )
         return sequelize;
-    },
-    //file 操作
-    fileupAsync: function (req,res,pathlib,fs) {
-        return new Promise((resolve, reject) => {
-            console.log(req.files);
-            //获取原始文件扩展名
-            var newName = req.files[0].path + pathlib.parse(req.files[0].originalname).ext;
-            fs.rename(req.files[0].path, newName, function (err) {
-                if (err) {
-                    console.log("上传失败");
-                    resolve(`{ "file upload success ?": "flase" }`);
-                } else {
-                    console.log("上传成功");
-                    resolve(`{ "file upload success ?": "true" ,"filename":"${newName}"}`);
-                }
-            });
-        });
     }
 } 
