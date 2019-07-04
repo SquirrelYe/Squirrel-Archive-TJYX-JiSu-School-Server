@@ -73,8 +73,10 @@ module.exports = {
         const price = getMoney(req.body.price)      // 产品价格 单位为分
 
         // 这里是在 express 获取用户的 ip, 因为使用了 nginx 的反向代理, 所以这样获取
-        let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        ip = ip.match(/\d+\.\d+\.\d+\.\d+/)[0]
+        // let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        // console.log('ip----->',req.headers['x-forwarded-for'], req.connection.remoteAddress)
+        // ip = ip.match(/\d+\.\d+\.\d+\.\d+/)[0]
+        let ip = '127.0.0.1'
 
         const tradeId = getTradeId(attach)      // 生成商家内部自定义的订单号, 商家内部的系统用的, 理论上只要不和其他订单重复, 使用任意的字符串都是可以的        
         const sign = getPrePaySign(appId, attach, productIntro, mchId, nonceStr, notifyUrl, openId, tradeId, ip, price)     // 生成签名

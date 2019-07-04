@@ -7,8 +7,8 @@ module.exports = {
     connection:function(req,res){
         var sequelize = new Sequelize(
             'TJYX_JiSu_School', // 数据库名
-            'root',   // 用户名
-            'yexuan0628',   // 用户密码
+            'user',   // 用户名
+            'yexuan@0628',   // 用户密码
             // 'yexuan@0628',  //服务器数据库
             {
                 'dialect': 'mysql',  // 数据库使用mysql
