@@ -54,7 +54,7 @@ module.exports = {
     // 按school查询
     findBySchoolId(req, res) {
         logistic.findAndCountAll({
-            where: { 'school_id': req.body.school_id },
+            where: { 'school_id': req.body.school_id, 'condition':{ $notIn:[-1]} },
             include: [{ 
                 model: user,
                 as: 'cus' ,

@@ -24,11 +24,10 @@ server.use(objmulter.any());
 
 const secret = require('./utils/key/secret').token  // token 密钥
 server.use((req, res, next) => {
-    let edition = req.get('edition')
     // 允许所有请求
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin", "X-Requested-With", "Content-Type", "Accept","Authorization","edition");
-    console.log('当前请求的版本号--->',edition)
+    // console.log(req.get('edition'))
     // 测试
     if(req.body.ceshi) next();
     else if(req.url == '/ent/user' || req.url =='/upload' || req.url =='/iconfont') next();

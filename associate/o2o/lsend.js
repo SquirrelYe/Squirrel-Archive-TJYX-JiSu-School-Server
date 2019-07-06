@@ -4,11 +4,15 @@ const lsend = require('../../entity/lsend').lsend;
 const user = require('../../entity/user').user;
 const location = require('../../entity/location').location;
 const school = require('../../entity/school').school;
+const info = require('../../entity/info').info;
 // 关联对象
 lsend.belongsTo(user, { foreignKey: 'user_id' ,as:'cus'  });
 lsend.belongsTo(user, { foreignKey: 'take' ,as:'tak' });
 lsend.belongsTo(location, { foreignKey: 'location_id' });
 lsend.belongsTo(school, { foreignKey: 'school_id' });
+
+info.belongsTo(user, { foreignKey: 'user_id' })
+user.hasOne(info)
 
 module.exports = {
     // 查询所有
@@ -38,10 +42,15 @@ module.exports = {
     // 按school查询
     findBySchoolId(req, res) {
         lsend.findAndCountAll({
-            where: { 'school_id': req.body.school_id },
-            include:[{ model:user,as:'cus'}, {model:user,as:'tak'}, {model:location}, {model:school} ],
+            where: { 'school_id': req.body.school_id, 'condition':{ $notIn:[-1]} },
+            include:[{ 
+                model:user,
+                as:'cus',
+                include:[{ model: info }]
+            }, {model:user,as:'tak'}, {model:location}, {model:school} ],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
+            order:[['condition', 'ASC'],['updated_at', 'DESC']]
         }).then(msg => { res.send(msg); })
     },
     // 模糊查询 cus name

@@ -10,7 +10,8 @@ module.exports = {
     findAndCountAllBySchool(req, res) {
         card.findAndCountAll({
             include: [{ model: user }],
-            where: { 'school': req.body.school_id },
+            where: { 'school': req.body.school_id, 'condition':{ $notIn:[-1]}  },
+            order:[['condition', 'ASC'],['updated_at', 'DESC']],
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then(msg => { res.send(msg); })
