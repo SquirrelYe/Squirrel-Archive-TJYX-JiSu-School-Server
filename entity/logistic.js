@@ -16,6 +16,7 @@ let logistic = conn.define(
         'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'total': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'money': { 'type': Sequelize.DOUBLE(11), 'allowNull': true },
+        'icon': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'key': { 'type': Sequelize.CHAR(255), 'allowNull': true },
         'school_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
     }
@@ -39,6 +40,7 @@ module.exports = {
             'condition': 0,
             'total':req.body.total,
             'money':req.body.money,
+            'icon':req.body.icon,
             'key':req.body.key,
             'school_id':req.body.school_id
         }).then( msg=>{ res.send(msg); })
@@ -62,6 +64,7 @@ module.exports = {
                 'condition':req.body.condition,
                 'total':req.body.total,
                 'money':req.body.money,
+                'icon':req.body.icon,
                 'key':req.body.key,
                 'school_id':req.body.school_id
             },
