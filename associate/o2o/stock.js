@@ -26,6 +26,9 @@ module.exports = {
         stock.findOne({
             where:{ 'user_id':req.body.user_id },
             include:[{ model:user}]
-        }).then( msg => { res.send(msg); })
+        }).then( msg => { 
+            res.send(msg); 
+            // res.status(250).send("被迫下线") 
+        })
     },
 }

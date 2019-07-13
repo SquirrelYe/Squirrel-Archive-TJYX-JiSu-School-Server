@@ -87,6 +87,7 @@ router.use('/logistic', function (req, res) {
     if (req.body.judge == 3) logistic.findAndCountAllLikeByName(req, res);
     if (req.body.judge == 4) logistic.findBySchoolId(req, res);
     if (req.body.judge == 5) logistic.findBySchoolIdCondition(req, res);
+    if (req.body.judge == 6) logistic.findByTake(req, res);
 })
 router.use('/lsend', function (req, res) {
     if (req.body.judge == 0) lsend.findAndCountAll(req, res);
@@ -95,6 +96,7 @@ router.use('/lsend', function (req, res) {
     if (req.body.judge == 3) lsend.findBySchoolId(req, res);
     if (req.body.judge == 4) lsend.findAndCountAllLikeByCusName(req, res);
     if (req.body.judge == 5) lsend.findAndCountAllLikeByTakName(req, res);
+    if (req.body.judge == 6) lsend.findByTake(req, res);
 })
 router.use('/order', function (req, res) {
     if (req.body.judge == 0) order.findAndCountAll(req, res);

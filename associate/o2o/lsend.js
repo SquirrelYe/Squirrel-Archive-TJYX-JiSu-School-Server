@@ -87,5 +87,14 @@ module.exports = {
             offset: Number(req.body.offset),
             limit: Number(req.body.limit),
         }).then(msg => { res.send(msg); })
-    }
+    },
+    // 按take查询
+    findByTake(req, res) {
+        lsend.findAndCountAll({
+            where: { 'take': req.body.take },
+            include:[{ model:user,as:'cus',include:[{ model: info}] }, {model:user,as:'tak'}, {model:location}, {model:school} ],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
+        }).then(msg => { res.send(msg); })
+    },
 }

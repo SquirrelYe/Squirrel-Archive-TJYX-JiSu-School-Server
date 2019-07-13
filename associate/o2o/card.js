@@ -28,6 +28,8 @@ module.exports = {
         card.findAndCountAll({
             where: { 'user_id': req.body.user_id },
             include: [{ model: user }],
+            offset: Number(req.body.offset),
+            limit: Number(req.body.limit),
         }).then(msg => { res.send(msg); })
     },
     // 模糊查询 location.name school
