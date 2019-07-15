@@ -177,14 +177,14 @@ router.use('/cart', function (req, res) {
     if (req.body.judge == 9) cart.findJourneyCallBack(req, res);
     if (req.body.judge == 10) cart.findFruitCallBack(req, res);
 })
-router.use('/tran', function (req, res) {
-    if (req.body.judge == 0) tran.findAndCountAll(req, res);
-    if (req.body.judge == 1) tran.findById(req, res);
-    if (req.body.judge == 2) tran.findByUserId(req, res);
-    if (req.body.judge == 3) tran.findByExam(req, res);
-    if (req.body.judge == 4) tran.findByJourney(req, res);
-    if (req.body.judge == 5) tran.findByFruit(req, res);
-})
+// router.use('/tran', function (req, res) {
+//     if (req.body.judge == 0) tran.findAndCountAll(req, res);
+//     if (req.body.judge == 1) tran.findById(req, res);
+//     if (req.body.judge == 2) tran.findByUserId(req, res);
+//     if (req.body.judge == 3) tran.findByExam(req, res);
+//     if (req.body.judge == 4) tran.findByJourney(req, res);
+//     if (req.body.judge == 5) tran.findByFruit(req, res);
+// })
 router.use('/stock', function (req, res) {
     if (req.body.judge == 0) stock.findAndCountAll(req, res);
     if (req.body.judge == 1) stock.findById(req, res);

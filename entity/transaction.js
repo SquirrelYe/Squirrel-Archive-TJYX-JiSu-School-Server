@@ -10,12 +10,9 @@ let tran = conn.define(
     {
         'id': { 'type': Sequelize.INTEGER(11), 'allowNull': true, 'primaryKey': true, 'autoIncrement': true },
         'user_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'type': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
         'number': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'eitem_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'jitem_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'fitem_id': { 'type': Sequelize.INTEGER(11), 'allowNull': true },
-        'condition': { 'type': Sequelize.INTEGER(11), 'allowNull': true }
+        'money': { 'type': Sequelize.DOUBLE(11,2), 'allowNull': true },
+        'detail': { 'type': Sequelize.CHAR(255), 'allowNull': true },
     }
 );
 
@@ -31,12 +28,9 @@ module.exports = {
         tran.create({
             'id':null,
             'user_id':req.body.user_id,
-            'type':req.body.type,
             'number':req.body.number,
-            'eitem_id':req.body.eitem_id,
-            'jitem_id':req.body.jitem_id,
-            'fitem_id':req.body.fitem_id,
-            'condition':req.body.condition
+            'money':req.body.money,
+            'detail':req.body.detail
         }).then( msg=>{ res.send(msg); })
     },
     // 删除信息
@@ -47,19 +41,22 @@ module.exports = {
             }
         ).then( msg=>{ res.send(msg); })
     },
-    //更新信息
+    // 更新信息
     update(req,res){
         tran.update(
             {
                 'user_id':req.body.user_id,
-                'type':req.body.type,
                 'number':req.body.number,
-                'eitem_id':req.body.eitem_id,
-                'jitem_id':req.body.jitem_id,
-                'fitem_id':req.body.fitem_id,
-                'condition':req.body.condition
+                'money':req.body.money,
+                'detail':req.body.detail
             },
             {   'where':{ 'id':req.body.id }
+        }).then( msg=>{ res.send(msg); })
+    },
+    // 按照user_id查询
+    findByUser(req,res){
+        tran.findAndCountAll({   
+            'where':{ 'user_id':req.body.user_id }
         }).then( msg=>{ res.send(msg); })
     }
 };

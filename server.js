@@ -11,6 +11,8 @@ const entity = require('./route/entity')
 const association = require('./route/association')
 const weixin = require('./route/weixin')
 const msg = require('./route/msg')
+// redis缓存
+const db = require('./redis/redis')
 
 var server = express();
 
@@ -24,6 +26,15 @@ server.use(objmulter.any());
 
 const secret = require('./utils/key/secret').token  // token 密钥
 server.use((req, res, next) => {
+    // 单一登录，查询redis缓存，key为 user_id
+    const { user_id,token } = req.body;
+    db.get(user_id, (err, result)=> {
+        // redis服务器异常
+        if (err) { res.status(251).send("redis服务器异常！！！"); return;  }
+        // 用户登录态丢失，强制下线
+        else if(result !== token){ res.status(250).send("redis服务器异常登录态丢失，强制下线！！！"); return; }
+        else console.log('用户登录态校验通过',user_id,'-->',token);
+    })
     // 允许所有请求
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin", "X-Requested-With", "Content-Type", "Accept","Authorization","edition");
