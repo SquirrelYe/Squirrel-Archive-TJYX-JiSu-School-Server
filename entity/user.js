@@ -3,6 +3,8 @@ const conn = require('../orm/orm').connection();
 const jwt = require('jsonwebtoken')
 const secret = require('../utils/key/secret').token
 
+const db = require('../redis/redis')
+
 const info = require('./info').info;
 const authen = require('./authen').authen;
 const school = require('./school').school;
@@ -61,9 +63,9 @@ module.exports = {
         })
         .then( msg=>{ 
             if(msg){
+                // 生成并返回 token
                 let encrp = jwt.sign( msg.dataValues , secret ,{ expiresIn:'1h'})
                 let data = { ...msg.dataValues, token:encrp}
-                console.log('token--->',encrp)
                 res.send(data)
             }
             else res.status(432).send("登录校验失败") 
@@ -152,10 +154,18 @@ module.exports = {
         })
         .then( msg=>{ 
             if(msg){
+                // 生成并返回 token
                 let encrp = jwt.sign( msg.dataValues , secret ,{ expiresIn:'1h'})
-                let data = { ...msg.dataValues, token:encrp}
-                console.log('token--->',encrp)
-                res.send(data)
+                let data = { ...msg.dataValues, token:encrp}                
+                // redis保存登录态
+                console.log('redis',msg.dataValues.id,encrp)
+                db.set(`tjyxlogin-${msg.dataValues.id}`,encrp,null,(err,result)=>{
+                    if(err){
+                        res.status(251).send("redis服务器异常！！！");
+                    }else{
+                        res.send(data)
+                    }
+                })
             }
             else res.status(432).send("登录校验失败") 
          })

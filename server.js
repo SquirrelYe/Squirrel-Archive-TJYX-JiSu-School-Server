@@ -25,38 +25,50 @@ var objmulter = multer({ dest: "./www/upload" });    //dest指定上传文件地
 server.use(objmulter.any());
 
 const secret = require('./utils/key/secret').token  // token 密钥
-server.use((req, res, next) => {
-    // 单一登录，查询redis缓存，key为 user_id
-    const { user_id,token } = req.body;
-    db.get(user_id, (err, result)=> {
-        // redis服务器异常
-        if (err) { res.status(251).send("redis服务器异常！！！"); return;  }
-        // 用户登录态丢失，强制下线
-        else if(result !== token){ res.status(250).send("redis服务器异常登录态丢失，强制下线！！！"); return; }
-        else console.log('用户登录态校验通过',user_id,'-->',token);
-    })
+server.use(async(req, res, next) => {
     // 允许所有请求
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin", "X-Requested-With", "Content-Type", "Accept","Authorization","edition");
-    // console.log(req.get('edition'))
-    // 测试
-    if(req.body.ceshi) next();
-    else if(req.url == '/ent/user' || req.url =='/upload' || req.url =='/iconfont') next();
+    // 登录、上传、访问字体直接跳出
+    if(req.url == '/ent/user' || req.url =='/upload') next();
     else{
-        // 校验token
-        let token = req.get("Authorization")
-        jwt.verify(token, secret, (err, dec) => {
-            if (err) res.status(431).send('token失效，请重新登录')
-            else{
-                if (req.method != 'POST') {
-                    res.status(440).send('请求方法错误，仅能使用POST请求')
-                } else {
-                    // console.log('token解密数据',dec)
-                    next()
+        // 单一登录，查询redis缓存，key为 user_id, value为 token
+        // 判断已存在登录态， -1 表示无登录态
+        if(req.get('user_id') != -1 && req.get('token') != -1){
+            let uid = req.get('user_id'); let token = req.get('token');
+            console.log('--->申请',uid)
+            await db.get(`tjyxlogin-${uid}`, (err, result)=> {
+                // redis服务器异常
+                if (err) { res.status(251).send("redis服务器异常！！！"); return;  }
+                // 用户登录态丢失，强制下线
+                else if(result !== token){ res.status(250).send("登录态丢失，强制下线！！！"); return; }
+                else {
+                    console.log('用户登录态校验通过',uid);
+
+                    // 测试
+                    if(req.body.ceshi) next();
+                    else{
+                        // 校验token
+                        jwt.verify(token, secret, (err, dec) => {
+                            if (err) res.status(431).send('token失效，请重新登录')
+                            else{
+                                if (req.method != 'POST') {
+                                    res.status(440).send('请求方法错误，仅能使用POST请求')
+                                } else {
+                                    // console.log('token解密数据',dec)
+                                    next()
+                                }
+                            }
+                        }) 
+                    }
                 }
-            }
-        }) 
+            })
+        }else{
+            // 无登录态
+            res.status(250).send("无登录态，请重新登录！！！"); return;
+        }
     }
+    
 });
 
 // 加载外部router
