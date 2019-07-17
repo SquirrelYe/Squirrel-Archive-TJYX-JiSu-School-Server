@@ -67,20 +67,8 @@ server.use(async(req, res, next) => {
         }else{
             // 无登录态,游客模式
             if(req.body.ceshi) next();
-            else{
-                // 校验token
-                jwt.verify(token, secret, (err, dec) => {
-                    if (err) res.status(431).send('token失效，请重新登录')
-                    else{
-                        if (req.method != 'POST') {
-                            res.status(440).send('请求方法错误，仅能使用POST请求')
-                        } else {
-                            // console.log('token解密数据',dec)
-                            next()
-                        }
-                    }
-                }) 
-            }
+            // 管理员端强制下线
+            else{ res.status(250).send("登录态丢失，强制下线！！！"); return;  }
         }
     }
     
