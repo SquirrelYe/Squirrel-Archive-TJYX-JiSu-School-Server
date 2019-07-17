@@ -28,15 +28,16 @@ const secret = require('./utils/key/secret').token  // token 密钥
 server.use(async(req, res, next) => {
     // 允许所有请求
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin", "X-Requested-With", "Content-Type", "Accept","Authorization","edition");
+    res.header("Access-Control-Allow-Headers", "Origin", "X-Requested-With", "Content-Type", "Accept","Authorization","edition","uid","token");
+    // console.log('edition--->',req.get('edition'),req.get('uid'),req.get('token'))
     // 登录、上传、访问字体直接跳出
     if(req.url == '/ent/user' || req.url =='/upload') next();
     else{
         // 单一登录，查询redis缓存，key为 user_id, value为 token
         // 判断已存在登录态， -1 表示无登录态
-        if(req.get('user_id') != -1 && req.get('token') != -1){
-            let uid = req.get('user_id'); let token = req.get('token');
-            console.log('--->申请',uid)
+        let uid = req.get('uid'); let token = req.get('token');        
+        console.log('--->申请',uid)
+        if(uid != -1 && token != -1){    
             await db.get(`tjyxlogin-${uid}`, (err, result)=> {
                 // redis服务器异常
                 if (err) { res.status(251).send("redis服务器异常！！！"); return;  }
