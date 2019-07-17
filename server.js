@@ -64,7 +64,7 @@ server.use(async(req, res, next) => {
                 }
             })
         }else{
-            // 无登录态
+            // 无登录态,游客模式
             res.status(250).send("无登录态，请重新登录！！！"); return;
         }
     }

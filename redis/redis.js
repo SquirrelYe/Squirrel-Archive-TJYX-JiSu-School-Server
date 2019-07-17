@@ -1,6 +1,6 @@
 var db = {};
 var redis = require("redis");
-var client = redis.createClient();
+var client = redis.createClient({password:'yexuan@0628'});
 
 client.on("error", function (err) {
     console.log("Error :", err);
