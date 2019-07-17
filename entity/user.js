@@ -154,12 +154,13 @@ module.exports = {
         })
         .then( msg=>{ 
             if(msg){
-                // 生成并返回 token
-                let encrp = jwt.sign( msg.dataValues , secret ,{ expiresIn:'1h'})
+                // 利用openid 生成token 并返回 token
+                const { id,openid } = msg.dataValues
+                let encrp = jwt.sign( {openid} , secret ,{ expiresIn:'1h'})
                 let data = { ...msg.dataValues, token:encrp}                
                 // redis保存登录态
-                console.log('redis',msg.dataValues.id,encrp)
-                db.set(`tjyxlogin-${msg.dataValues.id}`,encrp,null,(err,result)=>{
+                console.log('redis',id,encrp)
+                db.set(`tjyxlogin-${id}`,encrp,null,(err,result)=>{
                     if(err){
                         res.status(251).send("redis服务器异常！！！");
                     }else{
