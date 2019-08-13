@@ -66,7 +66,7 @@ server.use(async(req, res, next) => {
             })
         }else{
             // 无登录态,游客模式
-            if(req.body.ceshi) next();
+            if(req.get('tourist')) next();
             else{
                 // 校验token
                 jwt.verify(token, secret, (err, dec) => {
@@ -92,7 +92,7 @@ server.use('/ass', association);
 server.use('/wx', weixin);
 server.use('/msg', msg);
 server.use('/notify',xmlparser({ trim:false, explicitArray:false }), (req, res) => { 
-    // 微信支付成功后的回调地址，存储回调信息s
+    // 微信支付成功后的回调地址，存储回调信息
     console.log(req.body)
     res.send(`
         <xml>

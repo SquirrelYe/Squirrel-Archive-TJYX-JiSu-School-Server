@@ -197,6 +197,7 @@ router.use('/tran', function (req, res) {
     if(req.body.judge==1) tran.create(req, res)
     if(req.body.judge==2) tran.delete(req,res)
     if(req.body.judge==3) tran.update(req,res)
+    if(req.body.judge==4) tran.findByUser(req,res)
 });
 // 资金信息
 router.use('/stock', function (req, res) { 
