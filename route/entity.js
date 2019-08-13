@@ -41,6 +41,7 @@ router.use((req,res,next)=>{
     if(req.body.ceshi) next();
     else{
         let encrp =req.body.data
+        console.log('encrp-->',encrp)
         jwt.verify(encrp, secret, (err, dec) => {
             if (err) res.status(430).send(`接口请求参数解密失败,${err}`)
             else{
