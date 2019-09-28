@@ -63,6 +63,7 @@ router.use('/user', function(req, res) {
     if (req.body.judge == 6) user.updatePass(req, res)
     if (req.body.judge == 7) user.cusCreate(req, res)
     if (req.body.judge == 8) user.cusLogin(req, res)
+    if (req.body.judge == 9) user.forgetPass(req, res)
 });
 // 学校
 router.use('/school', function(req, res) {

@@ -152,28 +152,36 @@ module.exports = {
     // 用户登录
     cusLogin(req, res) {
         user.findOne({
-                'where': {
-                    'phone': req.body.phone,
-                    'pass': req.body.pass
-                },
-                include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
-            })
-            .then(msg => {
-                if (msg) {
-                    // 利用openid 生成token 并返回 token
-                    const { id, openid } = msg.dataValues
-                    let encrp = jwt.sign({ openid }, secret, { expiresIn: '1h' })
-                    let data = {...msg.dataValues, token: encrp }
-                        // redis保存登录态
-                    console.log('redis', id, encrp)
-                    db.set(`tjyxlogin-${id}`, encrp, null, (err, result) => {
-                        if (err) {
-                            res.status(251).send("redis服务器异常！！！");
-                        } else {
-                            res.send(data)
-                        }
-                    })
-                } else res.status(432).send("登录校验失败")
-            })
+            'where': {
+                'phone': req.body.phone,
+                'pass': req.body.pass
+            },
+            include: [{ model: info }, { model: authen }, { model: school }, { model: stock }],
+        })
+        .then(msg => {
+            if (msg) {
+                // 利用openid 生成token 并返回 token
+                const { id, openid } = msg.dataValues
+                let encrp = jwt.sign({ openid }, secret, { expiresIn: '1h' })
+                let data = {...msg.dataValues, token: encrp }
+                    // redis保存登录态
+                console.log('redis', id, encrp)
+                db.set(`tjyxlogin-${id}`, encrp, null, (err, result) => {
+                    if (err) {
+                        res.status(251).send("redis服务器异常！！！");
+                    } else {
+                        res.send(data)
+                    }
+                })
+            } else res.status(432).send("登录校验失败")
+        })
+    },
+    // 忘记密码找回
+    forgetPass(req, res) {
+        user.update({
+            'pass': req.body.pass
+        }, {
+            'where': { 'phone': req.body.phone }
+        }).then(msg => { res.send(msg); })
     },
 };
