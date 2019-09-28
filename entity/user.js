@@ -182,6 +182,6 @@ module.exports = {
             'pass': req.body.pass
         }, {
             'where': { 'phone': req.body.phone }
-        }).then(msg => { res.send(msg); })
+        }).then(msg => { res.send({ 'upd': msg }); })
     },
 };
