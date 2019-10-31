@@ -73,6 +73,7 @@ function send(body, req, res){
             res.send({"code": 0, "msg": `短信发送成功`})
         } else {
             //3. 返回响应数据
+            console.error( error, body)
             console.log('失败发送信息')
             res.send({"code": -1, "msg": '短信发送失败'})
         }
