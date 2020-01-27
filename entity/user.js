@@ -65,7 +65,7 @@ module.exports = {
                 if (msg) {
                     // 利用openid 生成token 并返回 token
                     const { id, openid } = msg.dataValues
-                    let encrp = jwt.sign({ openid }, secret, { expiresIn: '1h' })
+                    let encrp = jwt.sign({ openid }, secret, { expiresIn: '24h' })
                     let data = {...msg.dataValues, token: encrp }
                         // redis保存登录态
                     console.log('redis', id, encrp)
